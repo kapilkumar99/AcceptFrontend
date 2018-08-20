@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<title>Accept Sample App</title>
+
+	<!-- Bootstrap core CSS -->
+	<link href="scripts/bootstrap.min.css" rel="stylesheet">
+
+	<style type="text/css">
+		.navbar {min-height: 0px; margin-bottom: 0px; border: 0px;}
+		.nav>li {display: inline-block;}
+		.navbar-centered .nav > li > a {color: white}
+		.navbar-inverse { background-color: #555  } /* #7B7B7B */
+		.navbar-centered .nav > li > a:hover{ background-color: white; color: black }
+		.navbar-centered .nav .active > a,.navbar-centered .navbar-nav > .active > a:focus { background-color: white; color: black; font-weight:bold; }
+		.navbar-centered .navbar-nav { float: none; text-align: center; }
+	    .navbar-centered .navbar-nav > li { float: none; }
+	    .navbar-centered .nav > li { display: inline; }
+	    .navbar-centered .nav > li > a {display: inline-block; }
+	    #home { color:ivory; margin-left: 15%; margin-right: 15%;}
+		@media (min-width: 768px) {
+	    	.navbar-centered .nav > li > a { width:15%; }
+	    	#home { font-size: 30px}
+	    }
+	    @media (min-width:360px ) and (max-width: 768px){
+	    	.navbar-centered .nav > li > a {font-size: 12px}
+	    	#home { font-size: 20px}
+	    }
+	    @media (max-width: 360px) {
+	    	.navbar-centered .nav > li > a {font-size: 10px}
+	    	#home { font-size: 15px}
+	    }
+	    @media (min-width: 1022px) {
+	    	.modal-dialog { width: 850px}
+	    	#add_shipping { height: 300px }
+	    }
+		/* vertically center the Bootstrap modals */
+		.modal {
+			text-align: center;
+			padding: 0!important;
+		}
+		.modal:before {
+			content: '';
+			display: inline-block;
+			height: 100%;
+			vertical-align: middle;
+			margin-right: -4px;
+		}
+		.modal-dialog {
+			display: inline-block;
+			text-align: left;
+			vertical-align: middle;
+		}
+	.apple-pay-button-with-text {
+	    --apple-pay-scale: 1; /* (height / 32) */
+	    display: inline-flex;
+	    justify-content: center;
+	    font-size: 12px;
+	    border-radius: 5px;
+	    padding: 0px;
+	    box-sizing: border-box;
+	    min-width: 200px;
+	    min-height: 32px;
+	    max-height: 64px;
+	    cursor: pointer;
+	}
+	.apple-pay-button-white-with-text {
+	    background-color: white;
+	    color: black;
+	}
+	.apple-pay-button-white-with-line-with-text {
+	    background-color: white;
+	    color: black;
+	    border: .5px solid black;
+	}
+	.apple-pay-button-with-text.apple-pay-button-white-with-text > .logo {
+	    background-image: -webkit-named-image(apple-pay-logo-black);
+	    background-color: white;
+	}
+	.apple-pay-button-with-text.apple-pay-button-white-with-line-with-text > .logo {
+	    background-image: -webkit-named-image(apple-pay-logo-black);
+	    background-color: white;
+	}
+	.apple-pay-button-with-text > .text {
+	    font-family: -apple-system;
+	    font-size: calc(1em * var(--apple-pay-scale));
+	    font-weight: 300;
+	    align-self: center;
+	    margin-right: calc(2px * var(--apple-pay-scale));
+	}
+	.apple-pay-button-with-text > .logo {
+	    width: calc(35px * var(--scale));
+	    height: 100%;
+	    background-size: 100% 60%;
+	    background-repeat: no-repeat;
+	    background-position: 0 50%;
+	    margin-left: calc(2px * var(--apple-pay-scale));
+	    border: none;
+	}
+	.productTypes>li
+	{
+    padding-right: 35px;
+	}
+	.productTypes>li:last-child
+	{
+    padding-right: 0px;
+	}
+     .productTypes>li>a
+	{
+		font-weight: bold;
+    font-size: 16px;
+    border: 2px solid white;
+    border-radius: 5px;
+    padding: 15px 0 15px 0;
+	}
+    #home
+	{
+		display: block;
+    margin-top: 13%;
+	}
+	</style>
+
+	<script src="scripts/jquery-2.1.4.min.js"></script>
+	<script src="scripts/bootstrap.min.js"></script>
+	<script src="scripts/jquery.cookie.js"></script>
+	
+	
+	<script src="https://sandbox-assets.secure.checkout.visa.com/checkout-widget/resources/js/integration/v1/sdk.js"></script>
+	<script src="https://includestest.ccdc02.com/cardinalcruise/v1/songbird.js"></script>
+</head>
+
+<body style=" background: url('scripts/background.png'); padding-top: 50px;">
+	
+	<div class="container-fluid" style="width: 100%; margin: 0; padding:0">
+		
+		<div class="navbar navbar-inverse" role="navigation">
+			<div class="container-fluid navbar-centered">
+				<ul class="nav navbar-nav productTypes" style="margin-top: 0px; margin-bottom:0px; margin-left:auto">
+					<li><a href="index.html?producttype=acceptjs">Accept.Js</a></li>
+					<li><a href="index.html?producttype=acceptui">Accept UI</a></li>
+					<li><a href="index.html?producttype=accepthosted">Accept Hosted</a></li>
+					<li><a href="javascript:void(0);" id="acceptCust">Accept Customer</a></li>
+				</ul>
+			</div>
+		</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+
+            </div>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+   <div class="tab-content panel-group">
+
+		<div class="" id="home" align="center" >
+	      “Our cuisine is handmade with fresh organic and fair-trade spices for an aromatic and succulent dining experience.”
+	    </div>
+	</div>
+
+	<script type="text/javascript">
+    $(document).ready(function () {
+      
+    $("#acceptCust").click(function(){
+         $('#myModal').modal('show');
+    });
+});
+</script>
+</body>
+</html>

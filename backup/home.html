@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Accept Suite Sample App</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description" content="" />
+	<link rel="stylesheet" href="styles.css" type="text/css" />
+	<script type="text/javascript"
+    src="https://jstest.authorize.net/v3/AcceptUI.js"
+    charset="utf-8"></script>
+</head>
+<body>
+	<div id="page">
+		<div id="logo">
+			<h1><a href="/" id="logoLink">Accept Suite Sample App</a></h1>
+		</div>
+		<div id="content">
+			<h2>Hi !!</h2>
+		
+			<iframe id="load_payment" class="embed-responsive-item" name="load_payment" width="100%" height="1000px" frameborder="0" scrolling="no" hidden="true">
+			</iframe>
+
+			<form id="send_hptoken" action="https://test.authorize.net/payment/payment" method="post" target="load_payment" >
+				<input type="hidden" name="token" value="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.78BZ5Xprry" />
+			</form>
+
+            <input type="hidden" name="dataValue" id="dataValue" />
+            <input type="hidden" name="dataDescriptor" id="dataDescriptor" />
+            <button type="button" id="btnAcceptUI" hidden="true" class="AcceptUI" data-billingAddressOptions='{"show":true, "required":false}' data-apiLoginID="244dkNUJcH" data-clientKey="58Ur68c2tnE452gbmhWX4AT5Lpc9wQGCG5CcR39nZRU6NJmh2W7BzvqSRz3rJV5k" data-acceptUIFormBtnTxt="Submit" data-acceptUIFormHeaderTxt="Card Information" data-responseHandler="responseHandler">Pay
+            </button>
+		</div>
+		<div id="footer"></div>
+	</div>
+	
+	<script type="text/javascript" src="homescript.js"></script>
+</body>
+</html>
