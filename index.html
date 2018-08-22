@@ -12,150 +12,91 @@
     <title>Accept Sample App</title>
 
     <!-- Bootstrap core CSS -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <link href="scripts/bootstrap.min.css" rel="stylesheet">
     <script src="scripts/jquery-2.1.4.min.js"></script>
     <script src="scripts/bootstrap.min.js"></script>
-    <script src="scripts/jquery.cookie.js"></script>
+    <script src="scripts/jasmine.js"></script>
+    <link href="styles.css" rel="stylesheet">
+   
     <script type="text/javascript" src="https://jstest.authorize.net/v1/Accept.js"></script>
+
     <script type="text/javascript"
     src="https://jstest.authorize.net/v3/AcceptUI.js"
     charset="utf-8"></script>
+   
 </head>
 <body style=" background: url('scripts/background.png'); padding-top: 50px;">
 
-    <div id="acceptjs" style="background-color: white;">
+  <div id="acceptjs" class="acceptjsCont productCont container">
 
-        <table>
-            <tbody>
-                <tr>
-                    <td>
-                        <form action="/action_page.php" method="get">
-                            <label class="radio-inline">
-                              <input type="radio" name="optradio" value="card" onclick="showData(this.value)">Credit Card
-                          </label>
-                          <label class="radio-inline">
-                              <input type="radio" name="optradio" value="bank" onclick="showData(this.value)">Bank Account
-                          </label>
+    <table>
+      <tbody>
+        <tr>
+          <td>
+            <div>
+              <label class="radio-inline">
+                <input type="radio" name="optradio" value="card" onclick="showData(this.value)">Credit Card
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="optradio" value="bank" onclick="showData(this.value)">Bank Account
+              </label>
 
-                          <div class="content" >
-                            <div class="credit" style="display:none;">
-                               <input type="text" name="cardNumber" id="cardNumber" placeholder="cardNumber"/> <br><br>
-    <input type="text" name="expMonth" id="expMonth" placeholder="expMonth"/> <br><br>
-    <input type="text" name="expYear" id="expYear" placeholder="expYear"/> <br><br>
-    <input type="text" name="cardCode" id="cardCode" placeholder="cardCode"/> <br><br>
-                          </div>
+              <div class="content">
+                <div id="card" style="display:none;">
+                 <input type="text" name="cardNumber" id="cardNumber" placeholder="cardNumber"/> <br><br>
+                 <input type="text" name="expMonth" id="expMonth" placeholder="expMonth"/> <br><br>
+                 <input type="text" name="expYear" id="expYear" placeholder="expYear"/> <br><br>
+                 <input type="text" name="cardCode" id="cardCode" placeholder="cardCode"/> <br><br>
+               </div>
 
-                          <div class="bank" style="display:none;">
-                            <input type="text" name="accountNumber" id="accountNumber" placeholder="accountNumber"/> <br><br>
-    <input type="text" name="routingNumber" id="routingNumber" placeholder="routingNumber"/> <br><br>
-    <input type="text" name="nameOnAccount" id="nameOnAccount" placeholder="nameOnAccount"/> <br><br>
-    <input type="text" name="accountType" id="accountType" placeholder="accountType"/> <br><br>
-                        </div>
+               <div id="bank" style="display:none;">
+                <input type="text" name="accountNumber" id="accountNumber" placeholder="accountNumber"/> <br><br>
+                <input type="text" name="routingNumber" id="routingNumber" placeholder="routingNumber"/> <br><br>
+                <input type="text" name="nameOnAccount" id="nameOnAccount" placeholder="nameOnAccount"/> <br><br>
+                <input type="text" name="accountType" id="accountType" placeholder="accountType"/> <br><br>
+              </div>
 
-                        <br>
-                         <input type="hidden" name="dataValue" id="dataValue" />
-                         <input type="hidden" name="dataDescriptor" id="dataDescriptor" />
-                        <button class="btn btn-default btns btnpay" onclick="sendPaymentDataToAnet()" style="background:lightgrey;display:none;">Pay
-                        </button>
-                        <button class="btn btn-default btns" style="background:lightgrey;display:none;">Back
-                        </button>
-                    </div>
+              <br>
+              <input type="hidden" name="dataValue" id="dataValue" />
+              <input type="hidden" name="dataDescriptor" id="dataDescriptor" />
+              <div id="btns" style="display:none;"> 
+                <button class="btn btn-default btnpay" onclick="sendPaymentDataToAnet()" style="background:lightgrey;">Pay
+                </button>
+                <button class="btn btn-default " style="background:lightgrey;">Back
+                </button>
+              </div>
+            </div>
+          </div>
+        </td>
+        <td>
 
-                </form>
-            </td>
-            <td>
-
-            </td>
-        </tr>
+        </td>
+      </tr>
 
     </tbody>
-</table>
+  </table>
 
 </div>
 
-<script>
-    function showData(option)
-    {
-     if(option=="card")
-     {
-        document.getElementByClassName("bank").style.display="none";
-        document.getElementByClassName("card").style.display = "block";
-    }
-    else{
-     document.getElementByClassName("card").style.display = "none";
-     document.getElementByClassName("bank").style.display = "block";
- }
- document.getElementByClassName("btns").style.display = "block";
-}
-
-function sendPaymentDataToAnet(){
-    var authData = {};
-    authData.clientKey = "8s2F95Q7brhHd7Tns";
-    authData.apiLoginID = "78BZ5Xprry";
-
-    var sel=document.querySelector('input[name="optradio"]:checked').value;
-    var paymentData={};
-    if(sel=="card")
-    {
-        paymentData.cardNumber = document.getElementById("cardNumber").value;
-        paymentData.month = document.getElementById("expMonth").value;
-        paymentData.year = document.getElementById("expYear").value;
-        paymentData.cardCode = document.getElementById("cardCode").value;
-    }
-    else
-    {
-
-       paymentData.accountNumber = document.getElementById('accountNumber').value;
-       paymentData.routingNumber = document.getElementById('routingNumber').value;
-       paymentData.nameOnAccount = document.getElementById('nameOnAccount').value;
-       paymentData.accountType = document.getElementById('accountType').value;
-   }
-   
-
-
-   var secureData = {};
-   secureData.authData = authData;
-   secureData.paymentData = paymentData;
-
-   Accept.dispatchData(secureData, responseHandler);
-
-   function responseHandler(response) {
-    if (response.messages.resultCode === "Error") {
-        var i = 0;
-        while (i < response.messages.message.length) {
-            console.log(
-                response.messages.message[i].code + ": " +
-                response.messages.message[i].text
-                );
-            i = i + 1;
-        }
-    } else {
-        paymentFormUpdate(response.opaqueData);
-    }
-}
-}
-
-function paymentFormUpdate(opaqueData) {
-    document.getElementById("dataDescriptor").value = opaqueData.dataDescriptor;
-    alert(document.getElementById("dataValue").value);
-    document.getElementById("dataValue").value = opaqueData.dataValue;
-
-    // If using your own form to collect the sensitive data from the customer,
-    // blank out the fields before submitting them to your server.
-    document.getElementById("cardNumber").value = "";
-    document.getElementById("expMonth").value = "";
-    document.getElementById("expYear").value = "";
-    document.getElementById("cardCode").value = "";
-    document.getElementById("accountNumber").value = "";
-    document.getElementById("routingNumber").value = "";
-    document.getElementById("nameOnAccount").value = "";
-    document.getElementById("accountType").value = "";
-
-   // document.getElementById("paymentForm").submit();
-   //TODO Ajax call for API
-}
-
-
-</script>
+<div id="acceptui" class="acceptuiCont productCont container">
+  <form id="acceptUIForm"
+    method="POST"
+    action="https://http://10.173.126.47:443/index.html">
+    <input type="hidden" name="dataValue" id="dataValue" />
+    <input type="hidden" name="dataDescriptor" id="dataDescriptor" />
+    <button  type="button" id="btnAcceptUI"   
+        class="AcceptUI"  
+        data-billingAddressOptions='{"show":true, "required":false}' 
+        data-apiLoginID="244dkNUJcH" 
+        data-clientKey="58Ur68c2tnE452gbmhWX4AT5Lpc9wQGCG5CcR39nZRU6NJmh2W7BzvqSRz3rJV5k"
+        data-acceptUIFormBtnTxt="Submit" 
+        data-acceptUIFormHeaderTxt="Card Information" 
+        data-responseHandler="responseHandler">Pay
+    </button>
+  </form>
+</div>
+ 
+<script src="app.js"></script>
 </body>
-</html>
+</html> 

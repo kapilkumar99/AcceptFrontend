@@ -1,0 +1,8 @@
+.productCont
+{
+	background-color: white;
+	display: none;
+}
+#btnAcceptUI{
+	visibility: hidden;
+}
