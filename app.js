@@ -65,30 +65,34 @@ function sendPaymentDataToAnet(){
     authData.apiLoginID = "244dkNUJcH";//"78BZ5Xprry";
 
     var sel=document.querySelector('input[name="optradio"]:checked').value;
-    var paymentData={};
+    
     if(sel=="card")
     {
-        paymentData.cardNumber = document.getElementById("cardNumber").value;
-        paymentData.month = document.getElementById("expMonth").value;
-        paymentData.year = document.getElementById("expYear").value;
-        //paymentData.cardCode = document.getElementById("cardCode").value;
+        var cardData={};
+        cardData.cardNumber = document.getElementById("cardNumber").value;
+        cardData.month = document.getElementById("expMonth").value;
+        cardData.year = document.getElementById("expYear").value;
+        cardData.cardCode = document.getElementById("cardCode").value;
       /*  paymentData.zip = "73301";
         paymentData.fullName = "Lakshmi";*/
     }
     else
     {
-
-       paymentData.accountNumber = document.getElementById('accountNumber').value;
-       paymentData.routingNumber = document.getElementById('routingNumber').value;
-       paymentData.nameOnAccount = document.getElementById('nameOnAccount').value;
-       paymentData.accountType = document.getElementById('accountType').value;
+       var bankData={};
+       bankData.accountNumber = document.getElementById('accountNumber').value;
+       bankData.routingNumber = document.getElementById('routingNumber').value;
+       bankData.nameOnAccount = document.getElementById('nameOnAccount').value;
+       bankData.accountType = document.getElementById('accountType').value;
    }
    
 
 
    var secureData = {};
    secureData.authData = authData;
-   secureData.paymentData = paymentData;
+   if(sel=="card")
+    secureData.cardData = cardData;
+   else
+   secureData.bankData = bankData;
 
    Accept.dispatchData(secureData, responseHandler);
 
