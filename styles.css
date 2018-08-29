@@ -77,3 +77,25 @@ body
     color: #43484D;
     font-weight: 300;
 }
+.content{
+    margin: 20px 10px 10px 0;
+}
+.btnpay{
+    margin-right: 15px;
+}
+input[type='text']
+{
+    margin-bottom: 12px;
+}
+.hideElement{
+    display: none;
+}
+.paymentDiv{
+    margin: 15px 15px 15px 30px;
+}
+.cartLabels{
+    padding: 15px 0 10px 0;
+        text-align:  right;
+        margin-right: 22%;
+        color: #86939E;
+}

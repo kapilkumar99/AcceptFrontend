@@ -28,148 +28,227 @@
 <body>
 
   <div id="acceptjs" class="acceptjsCont productCont container">
-
-    <table>
-      <tbody>
-        <tr>
-          <td>
-            <div>
-              <label class="radio-inline">
-                <input type="radio" name="optradio" value="card" onclick="showData(this.value)">Credit Card
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="optradio" value="bank" onclick="showData(this.value)">Bank Account
-              </label>
-
-              <div class="content">
-                <div id="card" style="display:none;">
-                 <input type="text" name="cardNumber" id="cardNumber" placeholder="cardNumber"/> <br><br>
-                 <input type="text" name="expMonth" id="expMonth" placeholder="expMonth"/> <br><br>
-                 <input type="text" name="expYear" id="expYear" placeholder="expYear"/> <br><br>
-                 <input type="text" name="cardCode" id="cardCode" placeholder="cardCode"/> <br><br>
-               </div>
-
-               <div id="bank" style="display:none;">
-                <input type="text" name="accountNumber" id="accountNumber" placeholder="accountNumber"/> <br><br>
-                <input type="text" name="routingNumber" id="routingNumber" placeholder="routingNumber"/> <br><br>
-                <input type="text" name="nameOnAccount" id="nameOnAccount" placeholder="nameOnAccount"/> <br><br>
-                <input type="text" name="accountType" id="accountType" placeholder="accountType"/> <br><br>
-              </div>
-
-              <br>
-              <input type="hidden" name="dataValue" id="dataValue" />
-              <input type="hidden" name="dataDescriptor" id="dataDescriptor" />
-              <div id="btns" style="display:none;"> 
-                <button class="btn btn-default btnpay" onclick="sendPaymentDataToAnet()" style="background:lightgrey;">Pay
-                </button>
-                <button class="btn btn-default " style="background:lightgrey;">Back
-                </button>
-              </div>
-            </div>
+    <div class="row">
+      <div class="col-md-6">
+        <div class="shopping-cart">
+          <div class="title">
+            Payment Details
           </div>
-        </td>
-        <td>
+          <div class="paymentDiv">
+            <table class="tblpayment">
+              <tbody>
+                <tr>
+                  <td>
+                    <div>
+                      <label class="radio-inline">
+                        <input type="radio" name="optradio" value="card" onclick="showData(this.value)">Credit Card
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="optradio" value="bank" onclick="showData(this.value)">Bank Account
+                      </label>
 
-        </td>
-      </tr>
+                      <div class="content">
+                        <div id="card" class="hideElement">
+                         <input type="text" class="form-control" name="cardNumber" id="cardNumber" placeholder="cardNumber"/> 
+                         <input type="text" class="form-control" name="expMonth" id="expMonth" placeholder="expMonth"/> 
+                         <input type="text" class="form-control" name="expYear" id="expYear" placeholder="expYear"/> 
+                         <input type="text" class="form-control" name="cardCode" id="cardCode" placeholder="cardCode"/> 
+                       </div>
 
-    </tbody>
-  </table>
+                       <div id="bank" class="hideElement">
+                        <input type="text" class="form-control" name="accountNumber" id="accountNumber" placeholder="accountNumber"/> 
+                        <input type="text" class="form-control" name="routingNumber" id="routingNumber" placeholder="routingNumber"/> 
+                        <input type="text" class="form-control" name="nameOnAccount" id="nameOnAccount" placeholder="nameOnAccount"/> 
+                        <input type="text" class="form-control" name="accountType" id="accountType" placeholder="accountType"/>
+                      </div>
+
+                      <br>
+                      <input type="hidden" name="dataValue" id="dataValue" />
+                      <input type="hidden" name="dataDescriptor" id="dataDescriptor" />
+                      <div id="btns" class="hideElement"> 
+                        <button class="btn btn-primary btnpay" onclick="sendPaymentDataToAnet()" >Pay
+                        </button>
+                        <button class="btn btn-primary ">Cancel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="shopping-cart">
+        <div class="title">
+          Shopping Bag
+        </div>
+        <div class="cartLabels">
+        <span style="
+        margin-right: 35px;
+        ">Quantity</span>
+        <span style="
+        ">Price</span>
+      </div>
+      <div class="item">
+        <div class="image">
+          <img src="images/shirt.jpg" alt="" style="width: 100px;">
+        </div>
+        <div class="description">
+          <span>Common Projects</span>
+          <span>T Shirt</span>
+          <span>Black</span>
+        </div>
+        <div class="total-price">
+          1
+        </div>
+        <div class="total-price">$549</div>
+      </div>
+      <div class="item">
+        <div class="image">
+          <img src="images/shoes.jpg" alt="" style="width: 100px;">
+        </div>
+        <div class="description">
+          <span>Common Projects</span>
+          <span>Shoes</span>
+          <span>White</span>
+        </div>
+        <div class="total-price">
+          1
+        </div>
+        <div class="total-price">$549</div>
+      </div>
+      <div class="item">
+        <div class="image">
+          <img src="images/bottles.jpg" alt="" style="
+          width: 100px;
+          ">
+        </div>
+        <div class="description">
+          <span>Common Projects</span>
+          <span>Bottle</span>
+          <span>Green</span>
+        </div>
+        <div class="total-price">
+         3
+       </div>
+       <div class="total-price">$549</div>
+     </div>
+     <div class="" style="
+     padding: 20px;
+     text-align:  right;
+     margin-right: 93px;
+     font-size: 16px;
+     color: #43484D;
+     font-weight: 300;
+     ">
+     <span style="
+     margin-right: 35px;
+     ">Total</span>
+     <span style="
+     ">$2000</span>
+   </div>
+ </div>
+</div>
+
+</div>
 
 </div>
 
 <div id="acceptui" class="acceptuiCont productCont container">
 
-<div class="shopping-cart">
-  <!-- Title -->
-  <div class="title">
-    Shopping Bag
-  </div>
+  <div class="shopping-cart">
+    <!-- Title -->
+    <div class="title">
+      Shopping Bag
+    </div>
 
-  <!-- Product #1 -->
-  <div class="item">
-    
- 
-    <div class="image">
-      <img src="images/shirt.jpg" alt="" style="
-    width: 100px;
-">
-    </div>
- 
-    <div class="description">
-      <span>Common Projects</span>
-      <span>Bball High</span>
-      <span>Black</span>
-    </div>
- 
-    <div class="total-price">
-      1
-    </div>
- 
-    <div class="total-price">$549</div>
-  </div>
- <div class="item">
-    
- 
-    <div class="image">
-      <img src="images/shoes.jpg" alt="" style="
-    width: 100px;
-">
-    </div>
- 
-    <div class="description">
-      <span>Common Projects</span>
-      <span>Bball High</span>
-      <span>White</span>
-    </div>
- 
-    <div class="total-price">
-      1
-    </div>
- 
-    <div class="total-price">$549</div>
-  </div>
-  <div class="item">
-    
- 
-    <div class="image">
-      <img src="images/bottles.jpg" alt="" style="
-    width: 100px;
-">
-    </div>
- 
-    <div class="description">
-      <span>Common Projects</span>
-      <span>Bball High</span>
-      <span>Green</span>
-    </div>
- 
-    <div class="total-price">
-     3
-    </div>
- 
-    <div class="total-price">$549</div>
-  </div>
+    <!-- Product #1 -->
+    <div class="item">
 
+
+      <div class="image">
+        <img src="images/shirt.jpg" alt="" style="
+        width: 100px;
+        ">
+      </div>
+
+      <div class="description">
+        <span>Common Projects</span>
+        <span>Bball High</span>
+        <span>Black</span>
+      </div>
+
+      <div class="total-price">
+        1
+      </div>
+
+      <div class="total-price">$549</div>
+    </div>
+    <div class="item">
+
+
+      <div class="image">
+        <img src="images/shoes.jpg" alt="" style="
+        width: 100px;
+        ">
+      </div>
+
+      <div class="description">
+        <span>Common Projects</span>
+        <span>Bball High</span>
+        <span>White</span>
+      </div>
+
+      <div class="total-price">
+        1
+      </div>
+
+      <div class="total-price">$549</div>
+    </div>
+    <div class="item">
+
+
+      <div class="image">
+        <img src="images/bottles.jpg" alt="" style="
+        width: 100px;
+        ">
+      </div>
+
+      <div class="description">
+        <span>Common Projects</span>
+        <span>Bball High</span>
+        <span>Green</span>
+      </div>
+
+      <div class="total-price">
+       3
+     </div>
+
+     <div class="total-price">$549</div>
+   </div>
+
+ </div>
+
+ <form id="acceptUIForm"
+ method="POST"
+ action="https://http://10.173.126.47:443/index.html">
+ <input type="hidden" name="dataValue" id="dataValue" />
+ <input type="hidden" name="dataDescriptor" id="dataDescriptor" />
+ <button  type="button" id="btnAcceptUI"   
+ class="AcceptUI"  
+ data-billingAddressOptions='{"show":true, "required":false}' 
+ data-apiLoginID="244dkNUJcH" 
+ data-clientKey="58Ur68c2tnE452gbmhWX4AT5Lpc9wQGCG5CcR39nZRU6NJmh2W7BzvqSRz3rJV5k"
+ data-acceptUIFormBtnTxt="Submit" 
+ data-acceptUIFormHeaderTxt="Card Information" 
+ data-responseHandler="responseHandler">Pay
+</button>
+</form>
 </div>
 
-  <form id="acceptUIForm"
-    method="POST"
-    action="https://http://10.173.126.47:443/index.html">
-    <input type="hidden" name="dataValue" id="dataValue" />
-    <input type="hidden" name="dataDescriptor" id="dataDescriptor" />
-    <button  type="button" id="btnAcceptUI"   
-        class="AcceptUI"  
-        data-billingAddressOptions='{"show":true, "required":false}' 
-        data-apiLoginID="244dkNUJcH" 
-        data-clientKey="58Ur68c2tnE452gbmhWX4AT5Lpc9wQGCG5CcR39nZRU6NJmh2W7BzvqSRz3rJV5k"
-        data-acceptUIFormBtnTxt="Submit" 
-        data-acceptUIFormHeaderTxt="Card Information" 
-        data-responseHandler="responseHandler">Pay
-    </button>
-  </form>
-</div>
- 
 <script src="app.js"></script>
 </body>
 </html> 
