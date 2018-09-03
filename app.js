@@ -123,6 +123,7 @@ function paymentFormUpdate(opaqueData) {
     document.getElementById("routingNumber").value = "";
     document.getElementById("nameOnAccount").value = "";
     document.getElementById("accountType").value = "";
+    $(".alert").css("display","none");
 
 var tokenVal=$("#dataValue").val();
    // Ajax call for API
@@ -135,10 +136,13 @@ var tokenVal=$("#dataValue").val();
     contentType: "application/json; charset=utf-8",
     success: function (data, textStatus, jqXHR) {
             $("#msg").text(data);
+            $(".alert").removeClass("alert-danger").addClass("alert-success");
             $(".alert").css("display","block");
         },
         error: function (jqXHR, textStatus, errorThrown) {
-          alert(textStatus);
+          $("#msg").text(textStatus);
+          $(".alert").removeClass("alert-success").addClass("alert-danger");
+          $(".alert").css("display","block");
         }
   });
 }
