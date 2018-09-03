@@ -34,6 +34,9 @@
           <div class="title">
             Payment Details
           </div>
+          <div class="alert alert-success">
+          <span id="msg"></span>
+        </div>
           <div class="paymentDiv">
             <table class="tblpayment">
               <tbody>
@@ -41,10 +44,10 @@
                   <td>
                     <div>
                       <label class="radio-inline">
-                        <input type="radio" name="optradio" value="card" onclick="showData(this.value)">Credit Card
+                        <input type="radio" id="rdCard" name="optradio" value="card" onclick="showData(this.value)">Credit Card
                       </label>
                       <label class="radio-inline">
-                        <input type="radio" name="optradio" value="bank" onclick="showData(this.value)">Bank Account
+                        <input type="radio" id="idBank" name="optradio" value="bank" onclick="showData(this.value)">Bank Account
                       </label>
 
                       <div class="content">
@@ -85,12 +88,28 @@
         <div class="title">
           Shopping Bag
         </div>
-        <div class="cartLabels">
+        <!-- <div class="cartLabels">
         <span style="
         margin-right: 35px;
         ">Quantity</span>
         <span style="
         ">Price</span>
+      </div> -->
+      <div class="item" style="
+    padding: 15px;height: 70px;">
+        
+        
+        <div class="total-price" style="
+    text-align:  right;
+    width: 209px;
+    margin-left: 122px;
+    color: #86939E;
+">Quantity</div>
+        <div class="total-price" style="
+    width: 60px;
+    text-align:  right;
+    color: #86939E;
+">Price</div>
       </div>
       <div class="item">
         <div class="image">
@@ -136,7 +155,7 @@
        </div>
        <div class="total-price">$549</div>
      </div>
-     <div class="" style="
+    <!--  <div class="" style="
      padding: 20px;
      text-align:  right;
      margin-right: 93px;
@@ -149,7 +168,21 @@
      ">Total</span>
      <span style="
      ">$2000</span>
-   </div>
+   </div> -->
+   <div class="item" style="
+    padding: 15px;">
+        
+        
+        <div class="total-price" style="
+    text-align:  right;
+    width: 209px;
+    margin-left: 111px;
+">Total</div>
+        <div class="total-price" style="
+    width: 80px;
+    text-align:  right;
+">$2000</div>
+      </div>
  </div>
 </div>
 

@@ -9,7 +9,8 @@ function loadpage()
     if(pageurl.toLowerCase().indexOf("acceptjs")>0)
     {
         document.getElementById("acceptjs").style.display="block";
-    }
+        document.getElementById("rdCard").click();
+            }
     else if(pageurl.toLowerCase().indexOf("acceptui")>0)
     {
       AcceptUI();
@@ -64,25 +65,6 @@ function sendPaymentDataToAnet(){
     authData.clientKey = "58Ur68c2tnE452gbmhWX4AT5Lpc9wQGCG5CcR39nZRU6NJmh2W7BzvqSRz3rJV5k";//"8s2F95Q7brhHd7Tns";
     authData.apiLoginID = "244dkNUJcH";//"78BZ5Xprry";
 
- $.ajax({
-    url:'https://10.173.198.59:5006/api/AcceptSuite/Test',
-    type: 'GET',
-    //data: { token: JSON.stringify($("#dataValue").val())} ,
-    dataType: "text",
-    //data: JSON.stringify({ token: tokenVal }),
-    contentType: "application/json; charset=utf-8",
-    crossDomain: true,
-    success:function(result){
-       alert(result.status);
-    },
-    error:function(data) {
-      alert(data);
-      //var err = eval("(" + jqxhr.responseText + ")");
-      //alert(err.Message);
-    }
-   });
-
-
     var sel=document.querySelector('input[name="optradio"]:checked').value;
     
     if(sel=="card")
@@ -103,9 +85,6 @@ function sendPaymentDataToAnet(){
        bankData.nameOnAccount = document.getElementById('nameOnAccount').value;
        bankData.accountType = document.getElementById('accountType').value;
    }
-   
-
-
    var secureData = {};
    secureData.authData = authData;
    if(sel=="card")
@@ -114,9 +93,8 @@ function sendPaymentDataToAnet(){
    secureData.bankData = bankData;
 
    Accept.dispatchData(secureData, responseHandler);
-
-   
 }
+
 function responseHandler(response) {
     if (response.messages.resultCode === "Error") {
         var i = 0;
@@ -148,28 +126,19 @@ function paymentFormUpdate(opaqueData) {
 
 var tokenVal=$("#dataValue").val();
    // Ajax call for API
-   /*$.post('https://10.173.198.59:5006/api/AcceptSuite/AcceptJS', { token: tokenVal}, 
-    function(returnedData){
-         alert(returnedData);
-}).fail(function(){
-      alert("error");
-});*/
-  /* $.ajax({
-    url:'https://10.173.198.59:5006/api/AcceptSuite/Test',
-    type: 'POST',
-    //data: { token: JSON.stringify($("#dataValue").val())} ,
-    dataType: "jsonp",
-    data: JSON.stringify({ token: tokenVal }),
-    contentType: "application/json; charset=utf-8",
-    //crossDomain: true,
-    success:function(result){
-       alert(result.status);
+   $.ajax({
+    type: 'GET',  
+    url:'https://10.173.198.59:5006/api/AcceptSuite/AcceptJS',
+    data: {
+      token: tokenVal
     },
-    error:function(jqxhr, status, error) {
-      alert(jqxhr.responseText);
-      var err = eval("(" + jqxhr.responseText + ")");
-      alert(err.Message);
-    }
-   });*/
+    contentType: "application/json; charset=utf-8",
+    success: function (data, textStatus, jqXHR) {
+            $("#msg").text(data);
+            $(".alert").css("display","block");
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+          alert(textStatus);
+        }
+  });
 }
-
