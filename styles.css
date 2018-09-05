@@ -103,3 +103,9 @@ input[type='text']
     margin: 20px 0 10px 5px;
     display: none;
 }
+.error{
+    border-color: #a94442;
+}
+.success{
+    border-color: #3c763d;
+}

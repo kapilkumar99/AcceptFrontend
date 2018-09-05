@@ -9,8 +9,9 @@ function loadpage()
     if(pageurl.toLowerCase().indexOf("acceptjs")>0)
     {
         document.getElementById("acceptjs").style.display="block";
+        //Show card information by default
         document.getElementById("rdCard").click();
-            }
+    }
     else if(pageurl.toLowerCase().indexOf("acceptui")>0)
     {
       AcceptUI();
@@ -46,24 +47,109 @@ function AcceptUI()
      
 }
 
+//On click of radio buttons
 function showData(option)
-    {
+{
      if(option=="card")
      {
         document.getElementById("bank").style.display="none";
         document.getElementById("card").style.display = "block";
-    }
+     }
     else{
      document.getElementById("card").style.display = "none";
      document.getElementById("bank").style.display = "block";
- }
- document.getElementById("btns").style.display = "block";
+    }
+  document.getElementById("btns").style.display = "block";
 }
 
-function sendPaymentDataToAnet(){
-    var authData = {};
-    authData.clientKey = "58Ur68c2tnE452gbmhWX4AT5Lpc9wQGCG5CcR39nZRU6NJmh2W7BzvqSRz3rJV5k";//"8s2F95Q7brhHd7Tns";
-    authData.apiLoginID = "244dkNUJcH";//"78BZ5Xprry";
+//To validate fields in Accept JS form
+function validatePaymentFields()
+{
+  var sel=document.querySelector('input[name="optradio"]:checked').value;
+  if(sel=="card")
+  {
+   var cardNo = document.getElementById("cardNumber");
+   var expMonth = document.getElementById("expMonth");
+   var expYear = document.getElementById("expYear");
+
+       if(cardNo.value=="") 
+         cardNo.classList.add("error");
+       else
+       {
+         cardNo.classList.remove("error");
+         cardNo.classList.add("success");
+       }
+       if(expMonth.value=="")  
+         expMonth.classList.add("error");
+       else
+       {
+         expMonth.classList.remove("error");
+         expMonth.classList.add("success");
+       }
+       if(expYear.value=="")  
+         expYear.classList.add("error");
+       else
+       {
+          expYear.classList.remove("error");
+          expYear.classList.add("success");
+       }
+   }
+   else{
+     var accountNumber = document.getElementById("accountNumber");
+     var routingNumber = document.getElementById("routingNumber");
+     var nameOnAccount = document.getElementById("nameOnAccount");
+     var accountType = document.getElementById("accountType");
+
+        if(accountNumber.value=="")  
+          accountNumber.classList.add("error");
+       else
+       {
+         accountNumber.classList.remove("error");
+         accountNumber.classList.add("success");
+       }
+       if(routingNumber.value=="")
+         routingNumber.classList.add("error");
+       else
+       {
+        routingNumber.classList.remove("error");
+         routingNumber.classList.add("success");
+       }
+       if(nameOnAccount.value=="")
+         nameOnAccount.classList.add("error");
+       else
+       {
+          nameOnAccount.classList.remove("error");
+          nameOnAccount.classList.add("success");
+       }
+        if(accountType.value=="")  
+         accountType.classList.add("error");
+        else
+        {
+          accountType.classList.remove("error");
+          accountType.classList.add("success");
+        }
+   }
+   var iserror=document.getElementsByClassName("error");
+   if(iserror.length>0)
+   {
+    return "false";
+   }
+   else
+   {
+    return "true";
+   }
+}
+
+//Send payment information on Pay click in Accept Js
+function sendPaymentDataToAnet()
+{
+
+   var isvalid=validatePaymentFields();
+  if(isvalid=="true")
+  {
+   var authData = {};
+   authData.clientKey = "8RkzpvcF4mbCAm8fCzD537VuT6X5ZXaXT833awgXg7z8P99e2MXwXMzRE2v2NA3b";//"58Ur68c2tnE452gbmhWX4AT5Lpc9wQGCG5CcR39nZRU6NJmh2W7BzvqSRz3rJV5k";//"8s2F95Q7brhHd7Tns";
+   authData.apiLoginID = "42a6v35CanG9";//"244dkNUJcH";//"78BZ5Xprry";
 
     var sel=document.querySelector('input[name="optradio"]:checked').value;
     
@@ -74,8 +160,6 @@ function sendPaymentDataToAnet(){
         cardData.month = document.getElementById("expMonth").value;
         cardData.year = document.getElementById("expYear").value;
         cardData.cardCode = document.getElementById("cardCode").value;
-      /*  paymentData.zip = "73301";
-        paymentData.fullName = "Lakshmi";*/
     }
     else
     {
@@ -93,6 +177,7 @@ function sendPaymentDataToAnet(){
    secureData.bankData = bankData;
 
    Accept.dispatchData(secureData, responseHandler);
+ }
 }
 
 function responseHandler(response) {
@@ -109,6 +194,8 @@ function responseHandler(response) {
         paymentFormUpdate(response.opaqueData);
     }
 }
+
+//Reset fields on submit
 function paymentFormUpdate(opaqueData) {
     document.getElementById("dataDescriptor").value = opaqueData.dataDescriptor;
     document.getElementById("dataValue").value = opaqueData.dataValue;
@@ -123,26 +210,39 @@ function paymentFormUpdate(opaqueData) {
     document.getElementById("routingNumber").value = "";
     document.getElementById("nameOnAccount").value = "";
     document.getElementById("accountType").value = "";
-    $(".alert").css("display","none");
+    var element=document.getElementsByClassName('error');
+    while (element.length)
+    element[0].classList.remove("error");
+    
+    element=document.getElementsByClassName('success');
+    while (element.length)
+    element[0].classList.remove("success");
+    
+    document.getElementById("alert").style.display = "none";
 
-var tokenVal=$("#dataValue").val();
+   var tokenVal=document.getElementById("dataValue").value;
+
    // Ajax call for API
    $.ajax({
     type: 'GET',  
-    url:'https://10.173.198.59:5006/api/AcceptSuite/AcceptJS',
+    url:'https://10.173.198.59:2018/api/AcceptSuite/AcceptJS',
     data: {
       token: tokenVal
     },
     contentType: "application/json; charset=utf-8",
     success: function (data, textStatus, jqXHR) {
-            $("#msg").text(data);
-            $(".alert").removeClass("alert-danger").addClass("alert-success");
-            $(".alert").css("display","block");
+            document.getElementById("msg").innerHTML =data;
+            var element = document.getElementById("alert");
+            element.classList.remove("alert-danger");
+            element.classList.add("alert-success");
+            document.getElementById("alert").style.display="block";
         },
         error: function (jqXHR, textStatus, errorThrown) {
-          $("#msg").text(textStatus);
-          $(".alert").removeClass("alert-success").addClass("alert-danger");
-          $(".alert").css("display","block");
+          document.getElementById("msg").innerHTML =textStatus;
+          var element = document.getElementById("alert");
+          element.classList.remove("alert-success");
+          element.classList.add("alert-danger");
+          document.getElementById("alert").style.display="block";
         }
   });
 }

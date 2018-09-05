@@ -34,7 +34,7 @@
           <div class="title">
             Payment Details
           </div>
-          <div class="alert alert-success">
+          <div class="alert alert-success" id="alert">
           <span id="msg"></span>
         </div>
           <div class="paymentDiv">
@@ -52,10 +52,12 @@
 
                       <div class="content">
                         <div id="card" class="hideElement">
+                          
                          <input type="text" class="form-control" name="cardNumber" id="cardNumber" placeholder="cardNumber"/> 
-                         <input type="text" class="form-control" name="expMonth" id="expMonth" placeholder="expMonth"/> 
-                         <input type="text" class="form-control" name="expYear" id="expYear" placeholder="expYear"/> 
+                         <input type="text" class="form-control" name="expMonth" id="expMonth" placeholder="MM"/> 
+                         <input type="text" class="form-control" name="expYear" id="expYear" placeholder="YY"/> 
                          <input type="text" class="form-control" name="cardCode" id="cardCode" placeholder="cardCode"/> 
+                       
                        </div>
 
                        <div id="bank" class="hideElement">
@@ -69,7 +71,7 @@
                       <input type="hidden" name="dataValue" id="dataValue" />
                       <input type="hidden" name="dataDescriptor" id="dataDescriptor" />
                       <div id="btns" class="hideElement"> 
-                        <button class="btn btn-primary btnpay" onclick="sendPaymentDataToAnet()" >Pay
+                        <button type="Submit" class="btn btn-primary btnpay" onclick="sendPaymentDataToAnet();">Pay
                         </button>
                         <button class="btn btn-primary ">Cancel
                         </button>
@@ -267,7 +269,7 @@
 
  <form id="acceptUIForm"
  method="POST"
- action="https://http://10.173.126.47:443/index.html">
+ action="https://10.173.126.47:443/index.html">
  <input type="hidden" name="dataValue" id="dataValue" />
  <input type="hidden" name="dataDescriptor" id="dataDescriptor" />
  <button  type="button" id="btnAcceptUI"   
