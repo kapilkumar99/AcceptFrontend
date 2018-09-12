@@ -247,11 +247,12 @@
 
 <!-- Begin Aceept UI -->
 <div id="acceptui" class="acceptuiCont productCont container">
-  
-  <div class="shopping-cart order">
-    <div class="alert alert-success" id="alertUI">
+  <div class="alert alert-success" id="alertUI">
+      <p id="noteUI" class="hideElement">Thank you! Your order has been successfully placed.</p>
             <span id="msgUI"></span>
           </div>
+  <div class="shopping-cart order">
+
     <div class="title" >
       Order Summary
     </div>
@@ -308,36 +309,109 @@
   </div>
   
 </div>
-<div class="btnsUI"> 
-      <button type="Submit" class="btn btn-primary btnpay" onclick="showUI();">Pay
-      </button>
-      <button class="btn btn-primary btncancel"><a href="index_all.html">Cancel</a>
-      </button>
-  </div>
- <form id="paymentForm" method="POST">
+<form id="paymentForm" method="POST">
  <input type="hidden" name="dataValue" id="dataValue" />
  <input type="hidden" name="dataDescriptor" id="dataDescriptor" />
+<div class="btnsUI">
  <button type="button"
- class="AcceptUI" id="btnAcceptUI"
+ class="AcceptUI btn btn-primary btnpay" id="btnAcceptUI"
  data-billingAddressOptions='{"show":true, "required":false}'
  data-acceptUIFormBtnTxt="Submit"
  data-acceptUIFormHeaderTxt="Card Information"
  data-responseHandler="responseHandler">Pay
 </button>
-</form>
+<button class="btn btn-primary btncancel"><a href="index_all.html">Cancel</a>
+</button>
+</div>
+</form> 
 </div>
 <!-- End Accept UI -->
 
 <!-- Begin Accept Hosted -->
 <div id="acceptHosted" class="acceptHostedCont productCont container">
-
-  <iframe id="load_payment" class="embed-responsive-item" name="load_payment" width="100%" frameborder="0" scrolling="yes" hidden="true">
+<header>
+      <p class="shop">ACCEPT HOSTED</p>
+    </header>
+<div class="row subCont">
+  <div class="alert alert-success" id="alert">
+        <p id="noteHS" class="hideElement">Thank you! Your order has been successfully placed.</p>
+            <span id="msgHS"></span>
+  </div>
+<div class="col-md-6">
+  <div class="shopping-cart paymentCont">
+          <div class="title txtLeft">
+            Payment Details
+          </div>
+          
+          <div class="paymentDiv" style="border: none;">
+  <iframe id="load_payment" class="embed-responsive-item" name="load_payment"  frameborder="0" scrolling="yes" hidden="true">
   </iframe>
 
   <form id="send_hptoken" action="https://test.authorize.net/payment/payment" method="post" target="load_payment" >
     <input type="hidden" name="token" id="hostedtoken" value="" />
   </form>
+</div>
+</div>
+</div>
+<div class="col-md-6">
+<div class="shopping-cart order">
 
+    <div class="title" >
+      Order Summary
+    </div>
+   
+    <div style="opacity:0.5"></div>
+    <div class="item">
+      <div class="image">
+        <img src="images/shirt.jpg" alt="">
+      </div>
+      <div class="description">
+        <span>T Shirt</span>
+        <span>Black</span>
+      </div>
+      <div class="total-price">
+        1x200
+      </div>
+      <div class="total-price amount">$200</div>
+    </div>
+    <div class="item">
+      <div class="image">
+        <img src="images/shoes.jpg" alt="">
+      </div>
+      <div class="description">
+
+        <span>Shoes</span>
+        <span>White</span>
+      </div>
+      <div class="total-price">
+        2x250
+      </div>
+      <div class="total-price amount">$500</div>
+    </div>
+    <div class="item">
+      <div class="image">
+        <img src="images/bottles.jpg" alt="">
+      </div>
+      <div class="description">
+
+        <span>Bottle</span>
+        <span>Green</span>
+      </div>
+      <div class="total-price">
+        3x500
+      </div>
+      <div class="total-price amount">$1500</div>
+    </div>
+
+    <!--added by Dinesh-->
+    <hr class="hrTotal">
+    <!--added by Dinesh-->
+    <div class="item divtotal">
+    <div class="total-pri lbltotal">Total</div>
+    <div class="total-pri amtTotal">$2200</div>
+  </div>
+</div>
+</div>
 </div>
 <!-- End Accept Hosted -->
 <script src="constants.js"></script>

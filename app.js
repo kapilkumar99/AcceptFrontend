@@ -4,7 +4,7 @@ window.onload=loadpage();
 function loadpage()
 {
   var pageurl=window.location.href;
-
+  for (let el of document.querySelectorAll('.productCont')) el.style.display="none";
   if(pageurl.toLowerCase().indexOf("producttype")>0)
   {
     if(pageurl.toLowerCase().indexOf("acceptjs")>0)
@@ -18,6 +18,7 @@ function loadpage()
     {
       activeCont="acceptui";
       document.getElementById("acceptui").style.display="block";
+      AcceptUI();
     }
     else if(pageurl.toLowerCase().indexOf("accepthosted")>0)
     {
@@ -38,29 +39,27 @@ function loadpage()
   }
 }
 
-function showUI()
+
+function AcceptUI()
 {
-     var form=document.getElementById("paymentForm");
+     
+    var form=document.getElementById("paymentForm");
      form.setAttribute("action",globalVars.pageUrl);
 
      var ele=document.getElementById("btnAcceptUI");
      ele.setAttribute("data-apiLoginID",globalVars.apiLoginID);
      ele.setAttribute("data-clientKey",globalVars.clientKey);
-     ele.click();
+     //ele.click();
      
       /*setTimeout(function(){ 
              var d = document.getElementById("AcceptUIContainer");
               d.className += "show";
-       },200);*/
+       },200);*/ 
 }
-/*function AcceptUI()
-{
-     
-     
-}*/
 
 function AcceptHosted()
 {
+
   // Ajax call for API to get token
    $.ajax({
     type: 'GET',  
@@ -68,18 +67,38 @@ function AcceptHosted()
     data:{
       apiLoginId: globalVars.apiLoginID, 
       apiTransactionKey: globalVars.apiTransactionKey,
-      iFrameCommunicatorUrl:"https://10.173.192.248:2018/iframeCommunicator.html"
+      iFrameCommunicatorUrl:"https://10.173.192.248:5008/iframeCommunicator.html"
     },
     contentType: "application/json; charset=utf-8",
     success: function (data, textStatus, jqXHR) {
-            document.getElementById("hostedtoken").value=data;
+      if(data.status)
+      {
+           document.getElementById("hostedtoken").value=data.value;
             document.getElementById("send_hptoken").submit();
             document.getElementById("acceptHosted").style.display="block";
             document.getElementById("load_payment").style.display="block";
+            
+      }
+      else
+      {
+              document.getElementById("noteHS").style.display="none";
+              document.getElementById("msgHS").innerHTML ="";
+              document.getElementById("msgHS").innerHTML =data.message;
+              var element = document.getElementById("alertHS");
+              element.classList.remove("alert-success");
+              element.classList.add("alert-danger");
+              element.style.display="block";
+      }
+            
         },
     error: function (jqXHR, textStatus, errorThrown) {
-          alert("error");
-        }
+          document.getElementById("msgHS").innerHTML ="";
+              document.getElementById("msgHS").innerHTML =textStatus;
+              var element = document.getElementById("alertHS");
+              element.classList.remove("alert-success");
+              element.classList.add("alert-danger");
+              element.style.display="block";
+    }
   });
 }
 
@@ -299,9 +318,18 @@ function responseHandler(response) {
               contentType: "application/json; charset=utf-8",
               success: function (data, textStatus, jqXHR) {
                       document.getElementById("msgUI").innerHTML ="";
-                      document.getElementById("msgUI").innerHTML =data;
+                      if(data.status)
+                      {
+                       document.getElementById("noteUI").style.display="block";
+                       document.getElementById("msgUI").innerHTML ="Order confirmation number: "+data.value;
+                      }
+                      else
+                      {
+                        document.getElementById("noteUI").style.display="none";
+                        document.getElementById("msgUI").innerHTML=data.message;
+                      }
                       var element = document.getElementById("alertUI");
-                      if(data.toLowerCase().indexOf("success")!==-1)
+                      if(data.status)
                       {
                         element.classList.remove("alert-danger");
                         element.classList.add("alert-success");
@@ -343,7 +371,7 @@ function paymentFormUpdate(opaqueData) {
     document.getElementById("accountNumber").value = "";
     document.getElementById("routingNumber").value = "";
     document.getElementById("nameOnAccount").value = "";
-    document.getElementById("accountType").value = "";
+   // document.getElementById("accountType").value = "";
     var element=document.getElementsByClassName('error');
     while (element.length)
     element[0].classList.remove("error");
@@ -402,6 +430,16 @@ function paymentFormUpdate(opaqueData) {
   });
 }
 window.CommunicationHandler = {};
+function parseQueryString(str) {
+    var vars = [];
+    var arr = str.split('&');
+    var pair;
+    for (var i = 0; i < arr.length; i++) {
+      pair = arr[i].split('=');
+      vars[pair[0]] = unescape(pair[1]);
+    }
+    return vars;
+  }
 CommunicationHandler.onReceiveCommunication = function (argument) {
     params = parseQueryString(argument.qstr)
     parentFrame = argument.parent.split('/')[4];
@@ -420,9 +458,15 @@ CommunicationHandler.onReceiveCommunication = function (argument) {
 
     switch(params['action']){
       case "resizeWindow"   :   //if( parentFrame== "manage" && parseInt(params['height'])<1150) params['height']=1150;
-                    if( parentFrame== "payment" && parseInt(params['height'])<1000) params['height']=800;
+                    if( parentFrame== "payment" && parseInt(params['height'])<1000) 
+                      {
+                        params['height']=500;
+                        params['width']=400;
+                      }
+                    
                     //if(parentFrame=="addShipping" && $(window).width() > 1021) params['height']= 350;
                     $frame.outerHeight(parseInt(params['height']));
+                    $frame.outerWidth(parseInt(params['width']));
                     break;
 
       case "successfulSave"   :   $('#myModal').modal('hide'); location.reload(false); break;
