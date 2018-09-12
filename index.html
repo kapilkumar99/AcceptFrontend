@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>Accept Sample App</title>
+
+  <!-- Bootstrap core CSS -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <link href="scripts/bootstrap.min.css" rel="stylesheet">
+  <script src="scripts/jquery-2.1.4.min.js"></script>
+  <script src="scripts/bootstrap.min.js"></script>
+  <link href="styles.css" rel="stylesheet">
+
+  <script type="text/javascript" src="https://jstest.authorize.net/v1/Accept.js"></script>
+
+
+
+</head>
+<body>
+  <!-- Begin Accept JS -->
+  <div id="acceptjs" class="acceptjsCont productCont container">
+    <header>
+      <p class="shop">ACCEPT JS</p>
+    </header>
+    <div class="row subCont">
+      <div class="alert alert-success" id="alert">
+        <p id="note" class="hideElement">Thank you! Your order has been successfully placed.</p>
+            <span id="msg"></span>
+          </div>
+      <div class="col-md-6">
+        <div class="shopping-cart paymentCont">
+          <div class="title txtLeft">
+            Payment Details
+          </div>
+          
+          <div class="paymentDiv">
+            <table class="tblpayment">
+              <tbody>
+                <tr>
+                  <td>
+                    <div>
+                      <label class="radio-inline">
+                        <input type="radio" id="rdCard" name="optradio" value="card" onclick="showData(this.value)">Credit Card
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" id="idBank" name="optradio" value="bank" onclick="showData(this.value)">Bank Account
+                      </label>
+
+                      <div class="content">
+                        <div id="card" class="hideElement">
+                         <table>
+                           <tbody>
+                             <tr>
+                               <td>
+
+                                <label for="Card Number" class="lblFields">Card Number</label>
+
+                              </td> 
+                              <td>  <label> 
+                                <input type="text" class="form-control" name="cardNumber" id="cardNumber" placeholder="CardNumber" maxlength="16" onkeypress="return isNumber(event)" oninput="onTextInput(this.id)" /> 
+                             </label>
+                           </td>
+                         </tr>
+                         <tr> 
+                          <td>
+                            <label for="Exp Month" class="lblFields">Exp Month</label>
+                          </td>
+                          <td>
+                            <label >
+                             <input type="text" class="form-control" name="expMonth" id="expMonth" placeholder="MM" maxlength="2" onkeypress="return isNumber(event)" /> 
+                           </label>
+                           <td>
+                           </tr>
+                           <tr>
+                            <td>
+                              <label for="Exp Month" class="lblFields">Exp Year</label>
+                            </td>
+                            <td>
+                              <label >
+                               <input type="text" class="form-control" name="expYear" id="expYear" placeholder="YY" maxlength="2" onkeypress="return isNumber(event)"/> 
+                             </label>
+                           </td>
+                         </tr>
+                         <tr>
+                          <td>
+                            <label for="Card code" class="lblFields">Card Code</label>
+                          </td>
+                          <td>
+                            <label >
+                             <input type="text" class="form-control" name="cardCode" id="cardCode" onkeypress="return isNumber(event)" placeholder="CardCode"/> 
+                           </label>
+                         </td>
+                       </tr>
+
+                     </tbody>
+                   </table>      
+
+                 </div>
+
+                 <div id="bank" class="hideElement">
+                  <table>
+                    <tbody>
+                      <tr>    
+                        <td>  
+
+                          <label for="Account Number" class="lblFields">Account Number</label>
+                        </td>
+                        <td>  
+                          <label>
+                            <input type="text" class="form-control" name="accountNumber" id="accountNumber" placeholder="AccountNumber" maxlength="17" /> 
+                          </label>
+                        </td> 
+                      </tr>
+                      <tr>
+                        <td>  
+                          <label for="Routing Number" class="lblFields">Routing Number</label>
+                        </td>
+                        <td>  
+                          <label>
+                            <input type="text" class="form-control" name="routingNumber" id="routingNumber" placeholder="RoutingNumber" maxlength="9" /> 
+                          </label>
+                        </td>   
+                      </tr> 
+                      <tr>
+                        <td>  
+                          <label for="Name on Account" class="lblFields">Name on Account</label>
+                        </td>
+                        <td>  
+                          <label>
+
+                            <input type="text" class="form-control" name="nameOnAccount" id="nameOnAccount" placeholder="NameOnAccount" maxlength="22" /> 
+                          </label>
+                        </td> 
+                      </tr>
+                      <tr>
+                        <td>
+                          <label for="Account Type" class="lblFields">Account Type</label>
+                        </td> 
+                        <td class="accountType">   
+                        <label class="radio-inline mLeft10">
+                        <input type="radio" id="checking" name="acntradio" value="checking">Checking
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" id="savings" name="acntradio" value="savings">Savings
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" id="business" name="acntradio" value="businessChecking">Business Checking
+                      </label> 
+                          <!-- <label>
+
+                            <input type="text" class="form-control" name="accountType" id="accountType" placeholder="AccountType"/>
+                          </label> -->
+                        </td> 
+                      </tr>    
+                    </tbody> 
+                  </table>
+                </div>
+
+                <br>
+                <input type="hidden" name="dataValue" id="dataValue" />
+                <input type="hidden" name="dataDescriptor" id="dataDescriptor" />
+                <div id="btns" class="hideElement"> 
+                  <button type="Submit" class="btn btn-primary btnpay" onclick="sendPaymentDataToAnet();">Pay
+                  </button>
+                  <button class="btn btn-primary btncancel"><a href="index_all.html">Cancel</a>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+<div class="col-md-6">
+  <div class="shopping-cart order">
+    <div class="title" >
+      Order Summary
+    </div>
+
+    <div style="opacity:0.5"></div>
+    <div class="item">
+      <div class="image">
+        <img src="images/shirt.jpg" alt="">
+      </div>
+      <div class="description">
+        <span>T Shirt</span>
+        <span>Black</span>
+      </div>
+      <div class="total-price">
+        1x200
+      </div>
+      <div class="total-price amount">$200</div>
+    </div>
+    <div class="item">
+      <div class="image">
+        <img src="images/shoes.jpg" alt="">
+      </div>
+      <div class="description">
+
+        <span>Shoes</span>
+        <span>White</span>
+      </div>
+      <div class="total-price">
+        2x250
+      </div>
+      <div class="total-price amount">$500</div>
+    </div>
+    <div class="item">
+      <div class="image">
+        <img src="images/bottles.jpg" alt="">
+      </div>
+      <div class="description">
+
+        <span>Bottle</span>
+        <span>Green</span>
+      </div>
+      <div class="total-price">
+        3x500
+      </div>
+      <div class="total-price amount">$1500</div>
+    </div>
+
+    <!--added by Dinesh-->
+    <hr class="hrTotal">
+    <!--added by Dinesh-->
+    <div class="item divtotal">
+    <div class="total-pri lbltotal">Total</div>
+    <div class="total-pri amtTotal">$2200</div>
+  </div>
+</div>
+</div>
+
+</div>
+
+</div>
+<!-- End Accept JS -->
+
+<!-- Begin Aceept UI -->
+<div id="acceptui" class="acceptuiCont productCont container">
+  
+  <div class="shopping-cart order">
+    <div class="alert alert-success" id="alertUI">
+            <span id="msgUI"></span>
+          </div>
+    <div class="title" >
+      Order Summary
+    </div>
+   
+    <div style="opacity:0.5"></div>
+    <div class="item">
+      <div class="image">
+        <img src="images/shirt.jpg" alt="">
+      </div>
+      <div class="description">
+        <span>T Shirt</span>
+        <span>Black</span>
+      </div>
+      <div class="total-price">
+        1x200
+      </div>
+      <div class="total-price amount">$200</div>
+    </div>
+    <div class="item">
+      <div class="image">
+        <img src="images/shoes.jpg" alt="">
+      </div>
+      <div class="description">
+
+        <span>Shoes</span>
+        <span>White</span>
+      </div>
+      <div class="total-price">
+        2x250
+      </div>
+      <div class="total-price amount">$500</div>
+    </div>
+    <div class="item">
+      <div class="image">
+        <img src="images/bottles.jpg" alt="">
+      </div>
+      <div class="description">
+
+        <span>Bottle</span>
+        <span>Green</span>
+      </div>
+      <div class="total-price">
+        3x500
+      </div>
+      <div class="total-price amount">$1500</div>
+    </div>
+
+    <!--added by Dinesh-->
+    <hr class="hrTotal">
+    <!--added by Dinesh-->
+    <div class="item divtotal">
+    <div class="total-pri lbltotal">Total</div>
+    <div class="total-pri amtTotal">$2200</div>
+  </div>
+  
+</div>
+<div class="btnsUI"> 
+      <button type="Submit" class="btn btn-primary btnpay" onclick="showUI();">Pay
+      </button>
+      <button class="btn btn-primary btncancel"><a href="index_all.html">Cancel</a>
+      </button>
+  </div>
+ <form id="paymentForm" method="POST">
+ <input type="hidden" name="dataValue" id="dataValue" />
+ <input type="hidden" name="dataDescriptor" id="dataDescriptor" />
+ <button type="button"
+ class="AcceptUI" id="btnAcceptUI"
+ data-billingAddressOptions='{"show":true, "required":false}'
+ data-acceptUIFormBtnTxt="Submit"
+ data-acceptUIFormHeaderTxt="Card Information"
+ data-responseHandler="responseHandler">Pay
+</button>
+</form>
+</div>
+<!-- End Accept UI -->
+
+<!-- Begin Accept Hosted -->
+<div id="acceptHosted" class="acceptHostedCont productCont container">
+
+  <iframe id="load_payment" class="embed-responsive-item" name="load_payment" width="100%" frameborder="0" scrolling="yes" hidden="true">
+  </iframe>
+
+  <form id="send_hptoken" action="https://test.authorize.net/payment/payment" method="post" target="load_payment" >
+    <input type="hidden" name="token" id="hostedtoken" value="" />
+  </form>
+
+</div>
+<!-- End Accept Hosted -->
+<script src="constants.js"></script>
+<script src="app.js"></script>
+<script type="text/javascript"
+src="https://jstest.authorize.net/v3/AcceptUI.js"
+charset="utf-8"></script>
+</body>
+</html> 

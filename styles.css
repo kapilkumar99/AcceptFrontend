@@ -1,0 +1,256 @@
+body
+{
+    background: url('scripts/background.png'); 
+    padding-top: 50px;
+}
+.productCont
+{
+    background-color: rgb(238, 252, 238);
+    max-width: 1000px;
+    height: auto;
+    padding-bottom: 20px;
+    display: none;
+}
+.subCont{
+    border: solid thin;
+    border-color: #204d74;
+    width: auto;
+    height: auto;
+    margin: 0px 10px 10px 13px;
+}
+.shopping-cart {
+    margin: 28px auto;
+    display: flex;
+    flex-direction: column;
+    border-width: 2px 0 0 0;
+    border-radius: 0;
+}
+
+.title {
+    height: 60px;
+    padding: 20px 30px;
+    color: #5E6977;
+    font-weight: 400;
+    text-align:center;font-size: 18px;font:bold;text-transform: uppercase;
+}
+
+.item {
+    padding: 20px 30px;
+    height: 130px;
+    display: flex;
+}
+.image {
+    margin-right: 50px;
+}
+.image img{
+    width: 50px;
+    height: 50px;
+}
+.description span:first-child {
+    margin-bottom: 5px;
+}
+.description span {
+    display: block;
+    font-size: 14px;
+    color: #43484D;
+    font-weight: 400;
+}
+.description span:last-child {
+    font-weight: 300;
+    margin-top: 8px;
+    color: #86939E;
+}
+.quantity {
+    padding-top: 20px;
+    margin-right: 60px;
+}
+.quantity input {
+    -webkit-appearance: none;
+    border: none;
+    text-align: center;
+    width: 35px;
+    font-size: 16px;
+    color: #43484D;
+    font-weight: 300;
+}
+.total-price {
+    width: 83px;
+    padding-top: 27px;
+    text-align: center;
+    font-size: 16px;
+    color: #43484D;
+    font-weight:300px;
+    text-align:right;
+}
+.content{
+    margin: 20px 10px 10px 0;
+    border: thick #C00C0F;
+}
+.btnpay{
+    margin-right: 15px;
+}
+.btncancel{
+    margin-right: 78px;
+}
+input[type='text']
+{
+    margin-bottom: 5px;
+    margin-left: 30px;
+    outline:none;
+    cursor:text;
+    font-weight:400;
+    width:220px;
+}
+.hideElement{
+    display: none;
+}
+.paymentDiv{
+    margin: 0px 15px 15px 30px;
+    padding: 5px 5px 6px 6px;
+    border: solid thin;
+    border-color: #204d74;
+}
+.cartLabels{
+    padding: 15px 0 10px 0;
+        text-align:  right;
+        margin-right: 22%;
+        color: #86939E;
+}
+.alert{
+    margin: 20px 0 10px 5px;
+    display: none;
+}
+.tblpayment {
+    padding: 20px 30px 30px;
+    border-radius: 4px;
+    }
+checkout {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 30px 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.5s linear 0.5s;
+    border-radius: 4px;
+    border: 1px solid black;
+}
+
+header a.shop
+ {  margin-left: 400px;
+    font: bold 1px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #666ee8;
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+    text-decoration: none;
+    font-family: arvo Baskerville, "Palatino Linotype", Palatino, "Century Schoolbook L", "Times New Roman", "serif";
+}
+
+/*added by Dinesh*/
+
+header p.shop
+ {  
+    font: bold 1px;
+    font-size: 22px;
+    font-weight: 500;
+    margin-top: 20px;
+    color: #204d74; 
+    text-align: center;
+    font-family: "Times New Roman", Times, serif; 
+    }
+
+.hr {
+width: 400px;
+height: 47px;
+border-bottom: 1px solid #9A9A9A;
+position: absolute;
+margin-top: 360px;
+margin-bottom: auto;
+display:flex;
+direction: row; 
+}
+.total-pri {
+    width: 83px;
+    padding-top: 27px;
+    text-align: center;
+    font-size: 16px;
+    font-weight:300px;
+    text-align: right;  
+    font-size: 19px;
+    font:bold;
+    margin-top: -35px;
+}
+
+/*added by Dinesh*/
+.alert{
+    margin: 20px 0 10px 28px;
+    display: none;
+    width: 90%;
+}
+.error{
+    border-color: #a94442;
+}
+.success{
+    border-color: #3c763d;
+}
+.alert p:last-child
+{
+    margin-bottom: 0;
+}
+.alert p:first-child
+{
+    font-weight: bold;
+}
+.lblFields
+{
+    margin-left:1px;width:120px;
+}
+.order
+{
+    width:400px;height:400px; background-color:white;
+}
+.amount
+{
+    text-align:right;color:deepskyblue
+}
+.lbltotal{
+    width: 130px;margin-left: 108px;color: #43484D;
+}
+.amtTotal
+{
+    margin-left: 7px;color: deepskyblue;
+}
+.divtotal{
+    padding: 15px;
+}
+.hrTotal{
+    border-bottom: 1px solid #9A9A9A; width:100%;
+}
+.txtLeft{
+text-align:left !important;
+}
+.btn-primary a
+{
+    color:#fff;
+    text-decoration: none;
+}
+#btns{
+    text-align: right;
+}
+.accountType{
+    padding-top: 10px;
+    padding-left: 20px;
+}
+.accountType label{
+    width: 100%;
+}
+.mLeft10{
+    margin-left: 10px !important;
+}
+.btnsUI{
+    text-align: center;
+}
+#btnAcceptUI{
+    visibility: hidden;
+}
