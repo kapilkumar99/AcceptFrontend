@@ -63,11 +63,48 @@
 	display: block;
     margin-top: 200px;
 	}
+	.textBox{
+		width: 30%;
+	}
+	.scenario
+	{
+		padding-top: 6%;
+		padding-left: 1.5%
+	}
+	.invalidCustomerDiv
+	{
+		width: 20%;
+		padding-top: 0.5%;
+	}
+	.invalidCustomerSpan{
+		padding: 0.5%;
+		display: none;
+	}
+	.customerIdlabel
+	{
+		padding-top: 1%;
+	}
+	.modal-content{
+	    width: inherit;
+	    height:  inherit;
+	    margin:  0 auto;
+	}
+	.modal-align-center{
+	    display:  table-cell;
+	    vertical-align: middle;
+	}
+	.modal-align-center-helper{
+	    display: table;
+	    width: 100%;
+	    height: 100%;
+	}
 	</style>
 
 	<script src="scripts/jquery-2.1.4.min.js"></script>
 	<script src="scripts/bootstrap.min.js"></script>
 	<script src="scripts/jquery.cookie.js"></script>
+	<script src="app.js"></script>
+	<script src="constants.js"></script>
 	
 	
 	<script src="https://sandbox-assets.secure.checkout.visa.com/checkout-widget/resources/js/integration/v1/sdk.js"></script>
@@ -81,45 +118,58 @@
 		<div class="navbar navbar-inverse" role="navigation">
 			<div class="container-fluid navbar-centered">
 				<ul class="nav navbar-nav productTypes" style="margin-top: 0px; margin-bottom:0px; margin-left:auto">
-					<li><a href="index.html?producttype=acceptjs">Accept.Js</a></li>
+					<li><a href="index.html?producttype=acceptjs">Accept JS</a></li>
 					<li><a href="index.html?producttype=acceptui">Accept UI</a></li>
 					<li><a href="index.html?producttype=accepthosted">Accept Hosted</a></li>
-					<li><a href="javascript:void(0);" id="acceptCust">Accept Customer</a></li>
+					<li><a href="#" onclick="ShowModal()" data-toggle="modal" data-target="#customerId">Accept Customer</a></li>
 				</ul>
 			</div>
 		</div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                 <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-
-            </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-        </div>
     </div>
-</div>
-   <div class="tab-content panel-group">
 
+   <div class="tab-content panel-group">
 		<div class="" id="home" align="center" >
 	      “Our cuisine is handmade with fresh organic and fair-trade spices for an aromatic and succulent dining experience.”
 	    </div>
 	</div>
 
-	<script type="text/javascript">
-    $(document).ready(function () {
-      
-    $("#acceptCust").click(function(){
-         $('#myModal').modal('show');
-    });
-});
-</script>
+	<div id="customerId" class="modal fade" role="dialog">
+	<div class="modal-align-center-helper">
+		<div class="modal-dialog modal-align-center">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">X</button>
+				</div>
+				<div class="modal-body col-xs-12">
+					<label class="col-xs-2 customerIdlabel">Customer Id:</label> 
+                    <div class="col-xs-10 textBox">
+					    <input type="text" id="txtCustomerId" class="form-control " name="customerId">
+					</div>
+					
+					<div class="scenario">
+					    <h6>
+					    	Scenario 1- Use the existing customer profile ID, which is provided in the sample application documentation. 
+					    </h6>
+					    <h6>
+					    	Scenario 2- Create new customer profile ID using <a href="https://developer.authorize.net/api/reference/#customer-profiles-create-customer-profile" target="_blank">Dev center</a> by calling CreateCustomerProfile API with default sandbox login credentials.
+					    </h6>
+					    <h6>
+					    	Scenario 3 - Create new customer profile ID using <a href="https://developer.authorize.net/api/reference/#customer-profiles-create-customer-profile" target="_blank">Dev center</a> by calling CreateCustomerProfile API with developer owned(existing or create new) sandbox login credentials. 
+					    </h6>
+					 </div>
+					 <div>
+						<span id="invalidCustomer" class="alert alert-danger invalidCustomerSpan"></span>
+					 </div>
+
+				</div>
+				<div class="modal-footer">
+				    <button onclick="Redirect()" class="btn btn-primary">Submit</button>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+		</div>
+	</div>
+
 </body>
 </html>

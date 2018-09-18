@@ -60,7 +60,7 @@
                              <tr>
                                <td>
 
-                                <label for="Card Number" class="lblFields">Card Number</label>
+                                <label for="Card Number" class="lblFields lblreq">Card Number</label>
 
                               </td> 
                               <td>  <label> 
@@ -70,21 +70,21 @@
                          </tr>
                          <tr> 
                           <td>
-                            <label for="Exp Month" class="lblFields">Exp Month</label>
+                            <label for="Exp Month" class="lblFields lblreq">Exp Month</label>
                           </td>
                           <td>
                             <label >
-                             <input type="text" class="form-control" name="expMonth" id="expMonth" placeholder="MM" maxlength="2" onkeypress="return isNumber(event)" /> 
+                             <input type="text" class="form-control" name="expMonth" id="expMonth" placeholder="MM" maxlength="2" onkeypress="return isNumber(event)" oninput="onTextInput(this.id)" /> 
                            </label>
                            <td>
                            </tr>
                            <tr>
                             <td>
-                              <label for="Exp Month" class="lblFields">Exp Year</label>
+                              <label for="Exp Month" class="lblFields lblreq">Exp Year</label>
                             </td>
                             <td>
                               <label >
-                               <input type="text" class="form-control" name="expYear" id="expYear" placeholder="YY" maxlength="2" onkeypress="return isNumber(event)"/> 
+                               <input type="text" class="form-control" name="expYear" id="expYear" placeholder="YY" maxlength="2" onkeypress="return isNumber(event)" oninput="onTextInput(this.id)"/> 
                              </label>
                            </td>
                          </tr>
@@ -94,7 +94,7 @@
                           </td>
                           <td>
                             <label >
-                             <input type="text" class="form-control" name="cardCode" id="cardCode" onkeypress="return isNumber(event)" placeholder="CardCode"/> 
+                             <input type="text" class="form-control" name="cardCode" id="cardCode" onkeypress="return isNumber(event)" placeholder="CardCode" maxlength="4" /> 
                            </label>
                          </td>
                        </tr>
@@ -107,41 +107,9 @@
                  <div id="bank" class="hideElement">
                   <table>
                     <tbody>
-                      <tr>    
-                        <td>  
-
-                          <label for="Account Number" class="lblFields">Account Number</label>
-                        </td>
-                        <td>  
-                          <label>
-                            <input type="text" class="form-control" name="accountNumber" id="accountNumber" placeholder="AccountNumber" maxlength="17" /> 
-                          </label>
-                        </td> 
-                      </tr>
-                      <tr>
-                        <td>  
-                          <label for="Routing Number" class="lblFields">Routing Number</label>
-                        </td>
-                        <td>  
-                          <label>
-                            <input type="text" class="form-control" name="routingNumber" id="routingNumber" placeholder="RoutingNumber" maxlength="9" /> 
-                          </label>
-                        </td>   
-                      </tr> 
-                      <tr>
-                        <td>  
-                          <label for="Name on Account" class="lblFields">Name on Account</label>
-                        </td>
-                        <td>  
-                          <label>
-
-                            <input type="text" class="form-control" name="nameOnAccount" id="nameOnAccount" placeholder="NameOnAccount" maxlength="22" /> 
-                          </label>
-                        </td> 
-                      </tr>
                       <tr>
                         <td>
-                          <label for="Account Type" class="lblFields">Account Type</label>
+                          <label for="Account Type" class="lblFields lblreq">Account Type</label>
                         </td> 
                         <td class="accountType">   
                         <label class="radio-inline mLeft10">
@@ -150,15 +118,45 @@
                       <label class="radio-inline">
                         <input type="radio" id="savings" name="acntradio" value="savings">Savings
                       </label>
-                      <label class="radio-inline">
-                        <input type="radio" id="business" name="acntradio" value="businessChecking">Business Checking
+                      <label class="radio-inline mrgB10">
+                        <input type="radio" id="business" name="acntradio" value="business checking">Business Checking
                       </label> 
-                          <!-- <label>
-
-                            <input type="text" class="form-control" name="accountType" id="accountType" placeholder="AccountType"/>
-                          </label> -->
                         </td> 
-                      </tr>    
+                      </tr> 
+                      <tr>
+                        <td>  
+                          <label for="Name on Account" class="lblFields lblreq">Name on Account</label>
+                        </td>
+                        <td>  
+                          <label>
+
+                            <input type="text" class="form-control" name="nameOnAccount" id="nameOnAccount" placeholder="NameOnAccount" maxlength="22" oninput="onTextInput(this.id)" /> 
+                          </label>
+                        </td> 
+                      </tr>   
+                      <tr>    
+                        <td>  
+
+                          <label for="Account Number" class="lblFields lblreq">Account Number</label>
+                        </td>
+                        <td>  
+                          <label>
+                            <input type="text" class="form-control" name="accountNumber" id="accountNumber" placeholder="AccountNumber" maxlength="17" oninput="onTextInput(this.id)" /> 
+                          </label>
+                        </td> 
+                      </tr>
+                      <tr>
+                        <td>  
+                          <label for="Routing Number" class="lblFields lblreq">Routing Number</label>
+                        </td>
+                        <td>  
+                          <label>
+                            <input type="text" class="form-control" name="routingNumber" id="routingNumber" placeholder="RoutingNumber" maxlength="9" oninput="onTextInput(this.id)" /> 
+                          </label>
+                        </td>   
+                      </tr> 
+                      
+                      
                     </tbody> 
                   </table>
                 </div>
@@ -182,61 +180,91 @@
 </div>
 </div>
 <div class="col-md-6">
-  <div class="shopping-cart order">
-    <div class="title" >
+ <div class="shopping-cart order" style="height: 500px;width: 450px;">
+
+    <div class="title">
       Order Summary
     </div>
-
+   
     <div style="opacity:0.5"></div>
-    <div class="item">
+    <div class="item" style="
+    margin-bottom: 30px;
+">
       <div class="image">
-        <img src="images/shirt.jpg" alt="">
+        <img src="images/spects.jpg" alt="">
       </div>
       <div class="description">
-        <span>T Shirt</span>
+        <span>Sun Protection Goggles</span>
         <span>Black</span>
       </div>
       <div class="total-price">
-        1x200
+        1x$19.99
       </div>
-      <div class="total-price amount">$200</div>
+      <div class="total-price amount">$19.99</div>
     </div>
-    <div class="item">
+    <div class="item" style="margin-bottom: 30px;">
+      <div class="image" style="
+    width: 50px;
+">
+        <img src="images/bag.jpg" alt="">
+      </div>
+      <div class="description" style="
+    width: 150px;
+">
+
+        <span>Backpack</span>
+        <span>Blue</span>
+      </div>
+      <div class="total-price" style="
+    width: 85px;
+">
+        1x$22.99
+      </div>
+      <div class="total-price amount" style="
+    width: 85px;
+">$22.99</div>
+    </div>
+    <div class="item" style="margin-bottom: 30px;">
+      <div class="image">
+        <img src="images/jacket.jpg" alt="">
+      </div>
+      <div class="description" style="
+    width: 150px;
+">
+
+        <span>Men's Leather Jacket</span>
+        <span>Brown</span>
+      </div>
+      <div class="total-price">
+        1x$33.99
+      </div>
+      <div class="total-price amount">$33.99</div>
+    </div>
+    <div class="item" style="margin-bottom: 30px;">
       <div class="image">
         <img src="images/shoes.jpg" alt="">
       </div>
-      <div class="description">
+      <div class="description" style="
+    width: 150px;
+">
 
-        <span>Shoes</span>
+        <span>Sports Shoes</span>
         <span>White</span>
       </div>
       <div class="total-price">
-        2x250
+        1x$22.99
       </div>
-      <div class="total-price amount">$500</div>
+      <div class="total-price amount">$22.99</div>
     </div>
-    <div class="item">
-      <div class="image">
-        <img src="images/bottles.jpg" alt="">
-      </div>
-      <div class="description">
-
-        <span>Bottle</span>
-        <span>Green</span>
-      </div>
-      <div class="total-price">
-        3x500
-      </div>
-      <div class="total-price amount">$1500</div>
-    </div>
-
     <!--added by Dinesh-->
     <hr class="hrTotal">
     <!--added by Dinesh-->
     <div class="item divtotal">
-    <div class="total-pri lbltotal">Total</div>
-    <div class="total-pri amtTotal">$2200</div>
+    <div class="total-pri lbltotal" style="margin-left: 175px;">Total</div>
+    <div class="total-pri amtTotal" style="margin-left: 20px;">$99.96</div>
   </div>
+  
+</div>
 </div>
 </div>
 
@@ -246,66 +274,97 @@
 <!-- End Accept JS -->
 
 <!-- Begin Aceept UI -->
-<div id="acceptui" class="acceptuiCont productCont container">
+<div id="acceptui" class="acceptuiCont productCont container" style="width: 800px;">
+  <header>
+      <p class="shop">ACCEPT UI</p>
+    </header>
+    <div class="row subCont">
   <div class="alert alert-success" id="alertUI">
       <p id="noteUI" class="hideElement">Thank you! Your order has been successfully placed.</p>
             <span id="msgUI"></span>
           </div>
-  <div class="shopping-cart order">
+ <div class="shopping-cart order" style="height: 500px;width: 450px;">
 
-    <div class="title" >
+    <div class="title">
       Order Summary
     </div>
    
     <div style="opacity:0.5"></div>
-    <div class="item">
+    <div class="item" style="
+    margin-bottom: 30px;
+">
       <div class="image">
-        <img src="images/shirt.jpg" alt="">
+        <img src="images/spects.jpg" alt="">
       </div>
       <div class="description">
-        <span>T Shirt</span>
+        <span>Sun Protection Goggles</span>
         <span>Black</span>
       </div>
       <div class="total-price">
-        1x200
+        1x$19.99
       </div>
-      <div class="total-price amount">$200</div>
+      <div class="total-price amount">$19.99</div>
     </div>
-    <div class="item">
+    <div class="item" style="margin-bottom: 30px;">
+      <div class="image" style="
+    width: 50px;
+">
+        <img src="images/bag.jpg" alt="">
+      </div>
+      <div class="description" style="
+    width: 150px;
+">
+
+        <span>Backpack</span>
+        <span>Blue</span>
+      </div>
+      <div class="total-price" style="
+    width: 85px;
+">
+        1x$22.99
+      </div>
+      <div class="total-price amount" style="
+    width: 85px;
+">$22.99</div>
+    </div>
+    <div class="item" style="margin-bottom: 30px;">
+      <div class="image">
+        <img src="images/jacket.jpg" alt="">
+      </div>
+      <div class="description" style="
+    width: 150px;
+">
+
+        <span>Men's Leather Jacket</span>
+        <span>Brown</span>
+      </div>
+      <div class="total-price">
+        1x$33.99
+      </div>
+      <div class="total-price amount">$33.99</div>
+    </div>
+    <div class="item" style="margin-bottom: 30px;">
       <div class="image">
         <img src="images/shoes.jpg" alt="">
       </div>
-      <div class="description">
+      <div class="description" style="
+    width: 150px;
+">
 
-        <span>Shoes</span>
+        <span>Sports Shoes</span>
         <span>White</span>
       </div>
       <div class="total-price">
-        2x250
+        1x$22.99
       </div>
-      <div class="total-price amount">$500</div>
+      <div class="total-price amount">$22.99</div>
     </div>
-    <div class="item">
-      <div class="image">
-        <img src="images/bottles.jpg" alt="">
-      </div>
-      <div class="description">
-
-        <span>Bottle</span>
-        <span>Green</span>
-      </div>
-      <div class="total-price">
-        3x500
-      </div>
-      <div class="total-price amount">$1500</div>
-    </div>
-
     <!--added by Dinesh-->
     <hr class="hrTotal">
     <!--added by Dinesh-->
     <div class="item divtotal">
-    <div class="total-pri lbltotal">Total</div>
-    <div class="total-pri amtTotal">$2200</div>
+    <div class="total-pri lbltotal" style="margin-left: 175px;">Total</div>
+    <div class="total-pri amtTotal" style="margin-left: 20px;">$99.96</div>
   </div>
   
 </div>
@@ -325,15 +384,18 @@
 </div>
 </form> 
 </div>
+</div>
 <!-- End Accept UI -->
 
 <!-- Begin Accept Hosted -->
-<div id="acceptHosted" class="acceptHostedCont productCont container">
+<div id="acceptHosted" class="acceptHostedCont productCont container" style="background-color: white;font-family: Century Gothic, Regular;
+    font-weight: 700 !important;
+    color: #666666">
 <header>
       <p class="shop">ACCEPT HOSTED</p>
     </header>
 <div class="row subCont">
-  <div class="alert alert-success" id="alert">
+  <div class="alert alert-success" id="alertHS">
         <p id="noteHS" class="hideElement">Thank you! Your order has been successfully placed.</p>
             <span id="msgHS"></span>
   </div>
@@ -347,73 +409,130 @@
   <iframe id="load_payment" class="embed-responsive-item" name="load_payment"  frameborder="0" scrolling="yes" hidden="true">
   </iframe>
 
-  <form id="send_hptoken" action="https://test.authorize.net/payment/payment" method="post" target="load_payment" >
+  <form id="send_hptoken" method="post" target="load_payment" >
     <input type="hidden" name="token" id="hostedtoken" value="" />
   </form>
 </div>
 </div>
 </div>
 <div class="col-md-6">
-<div class="shopping-cart order">
+ <div class="shopping-cart order" style="height: 500px;width: 450px;">
 
-    <div class="title" >
+    <div class="title">
       Order Summary
     </div>
    
     <div style="opacity:0.5"></div>
-    <div class="item">
+    <div class="item" style="
+    margin-bottom: 30px;
+">
       <div class="image">
-        <img src="images/shirt.jpg" alt="">
+        <img src="images/spects.jpg" alt="">
       </div>
       <div class="description">
-        <span>T Shirt</span>
+        <span>Sun Protection Goggles</span>
         <span>Black</span>
       </div>
       <div class="total-price">
-        1x200
+        1x$19.99
       </div>
-      <div class="total-price amount">$200</div>
+      <div class="total-price amount">$19.99</div>
     </div>
-    <div class="item">
+    <div class="item" style="margin-bottom: 30px;">
+      <div class="image" style="
+    width: 50px;
+">
+        <img src="images/bag.jpg" alt="">
+      </div>
+      <div class="description" style="
+    width: 150px;
+">
+
+        <span>Backpack</span>
+        <span>Blue</span>
+      </div>
+      <div class="total-price" style="
+    width: 85px;
+">
+        1x$22.99
+      </div>
+      <div class="total-price amount" style="
+    width: 85px;
+">$22.99</div>
+    </div>
+    <div class="item" style="margin-bottom: 30px;">
+      <div class="image">
+        <img src="images/jacket.jpg" alt="">
+      </div>
+      <div class="description" style="
+    width: 150px;
+">
+
+        <span>Men's Leather Jacket</span>
+        <span>Brown</span>
+      </div>
+      <div class="total-price">
+        1x$33.99
+      </div>
+      <div class="total-price amount">$33.99</div>
+    </div>
+    <div class="item" style="margin-bottom: 30px;">
       <div class="image">
         <img src="images/shoes.jpg" alt="">
       </div>
-      <div class="description">
+      <div class="description" style="
+    width: 150px;
+">
 
-        <span>Shoes</span>
+        <span>Sports Shoes</span>
         <span>White</span>
       </div>
       <div class="total-price">
-        2x250
+        1x$22.99
       </div>
-      <div class="total-price amount">$500</div>
+      <div class="total-price amount">$22.99</div>
     </div>
-    <div class="item">
-      <div class="image">
-        <img src="images/bottles.jpg" alt="">
-      </div>
-      <div class="description">
-
-        <span>Bottle</span>
-        <span>Green</span>
-      </div>
-      <div class="total-price">
-        3x500
-      </div>
-      <div class="total-price amount">$1500</div>
-    </div>
-
     <!--added by Dinesh-->
     <hr class="hrTotal">
     <!--added by Dinesh-->
     <div class="item divtotal">
-    <div class="total-pri lbltotal">Total</div>
-    <div class="total-pri amtTotal">$2200</div>
+    <div class="total-pri lbltotal" style="margin-left: 175px;">Total</div>
+    <div class="total-pri amtTotal" style="margin-left: 20px;">$99.96</div>
   </div>
+  
+</div>
 </div>
 </div>
 </div>
 <!-- End Accept Hosted -->
+
+<!-- Begin Accept Customer -->
+<div id="acceptCustomer" class="acceptCustomerCont productCont container">
+<header>
+      <p class="shop">ACCEPT CUSTOMER</p>
+    </header>
+<div class="row subCont">
+  <div class="alert alert-success" id="alertCS">
+        <p id="noteCS" class="hideElement">Thank you! Your order has been successfully placed.</p>
+            <span id="msgCS"></span>
+  </div>
+  <input type="hidden" name="isvalidated" id="isvalidated" value="no">
+  <div class="shopping-cart paymentCont">
+         
+          <div class="paymentDiv" style="border: none;">
+  <iframe id="load_profile" class="embed-responsive-item" name="load_profile"  frameborder="0" scrolling="yes" hidden="true">
+  </iframe>
+
+  <form id="send_token" method="post" target="load_profile" >
+    <input type="hidden" name="token" id="custtoken" value="" />
+  </form>
+</div>
+</div>
+</div>
+</div>
+<!-- End Accept Customer -->
+
+
 <script src="constants.js"></script>
 <script src="app.js"></script>
 <script type="text/javascript"

@@ -251,8 +251,13 @@ text-align:left !important;
 .btnsUI{
     text-align: center;
     margin-left: 55px;
+    margin-bottom: 10px;
 }
-/*#btnAcceptUI{
-    visibility: hidden;
+.lblreq:before{
+ content:"*" ;
+color:red;
+margin-right: 3px; 
 }
-*/
+.mrgB10{
+    margin-bottom: 10px;
+}

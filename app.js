@@ -23,22 +23,53 @@ function loadpage()
     else if(pageurl.toLowerCase().indexOf("accepthosted")>0)
     {
       activeCont="accepthosted";
-       //if(pageurl.toLowerCase().indexOf("customerid")>0)
-       //{
-        // var id = getParameterByName('customerid',window.location.href);
-         
-       //}
-       //validateID(id);
-         AcceptHosted();
+       if(pageurl.toLowerCase().indexOf("customerid")>0)
+       {
+         var id = getParameterByName('customerid',window.location.href.toLowerCase());
+          var result= ValidateCustomer(id);
+            if(result.valid)
+            {
+              AcceptHosted(id);
+            }
+       }
+       else
+       {
+         AcceptHosted('');
+       }
     }
     else if(pageurl.toLowerCase().indexOf("acceptcustomer")>0)
     {
       activeCont="acceptcustomer";
-      //AcceptCustomer();
+      if(pageurl.toLowerCase().indexOf("customerid")>0)
+       {
+         var id = getParameterByName('customerid',window.location.href);
+         //if(document.getElementById("isvalidated").value=="no")
+         //{
+            var result= ValidateCustomer(id);
+            if(result.valid)
+            {
+              AcceptCustomer(id);
+            }
+         //}
+         //else
+         //{
+         //   AcceptCustomer(id);
+         //}
+       }
     }
   }
 }
 
+//To get query string parameter value based on name
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
 
 function AcceptUI()
 {
@@ -49,17 +80,11 @@ function AcceptUI()
      var ele=document.getElementById("btnAcceptUI");
      ele.setAttribute("data-apiLoginID",globalVars.apiLoginID);
      ele.setAttribute("data-clientKey",globalVars.clientKey);
-     //ele.click();
-     
-      /*setTimeout(function(){ 
-             var d = document.getElementById("AcceptUIContainer");
-              d.className += "show";
-       },200);*/ 
 }
 
-function AcceptHosted()
+function AcceptHosted(id)
 {
-
+  var customerId=id;
   // Ajax call for API to get token
    $.ajax({
     type: 'GET',  
@@ -67,13 +92,15 @@ function AcceptHosted()
     data:{
       apiLoginId: globalVars.apiLoginID, 
       apiTransactionKey: globalVars.apiTransactionKey,
-      iFrameCommunicatorUrl:"https://10.173.192.248:5008/iframeCommunicator.html"
+      iFrameCommunicatorUrl: globalVars.iFrameCommunicatorUrl,
+      customerId: customerId
     },
     contentType: "application/json; charset=utf-8",
     success: function (data, textStatus, jqXHR) {
       if(data.status)
       {
            document.getElementById("hostedtoken").value=data.value;
+           document.getElementById("send_hptoken").setAttribute("action",globalVars.hostedFormUrl);
             document.getElementById("send_hptoken").submit();
             document.getElementById("acceptHosted").style.display="block";
             document.getElementById("load_payment").style.display="block";
@@ -88,6 +115,7 @@ function AcceptHosted()
               element.classList.remove("alert-success");
               element.classList.add("alert-danger");
               element.style.display="block";
+               document.getElementById("acceptHosted").style.display="block";
       }
             
         },
@@ -95,6 +123,143 @@ function AcceptHosted()
           document.getElementById("msgHS").innerHTML ="";
               document.getElementById("msgHS").innerHTML =textStatus;
               var element = document.getElementById("alertHS");
+              element.classList.remove("alert-success");
+              element.classList.add("alert-danger");
+              element.style.display="block";
+    }
+  });
+}
+
+//to clear the modal dialog window values on reload
+function ShowModal()
+{
+  document.getElementById("txtCustomerId").value = "";
+  document.getElementById("invalidCustomer").style.display="none";
+}
+
+function Redirect()
+{
+   document.getElementById("invalidCustomer").style.display="none";
+   customerId = document.getElementById("txtCustomerId").value;
+   var result=ValidateCustomer(customerId);
+   if(result.valid)
+   {
+      if(result.status)
+      {
+      window.location.href= "index.html?producttype=acceptcustomer&customerid="+customerId;
+      setTimeout(function(){ 
+      document.getElementById("isvalidated").value="yes";
+       },200);
+    }
+    else
+    {
+          document.getElementById("invalidCustomer").style.display="inherit";
+            document.getElementById("invalidCustomer").innerHTML=result.message; 
+     }
+  }
+  else
+  {
+    document.getElementById("invalidCustomer").style.display="inherit";
+      document.getElementById("invalidCustomer").innerHTML=result.message;
+  }
+
+}
+
+//Validate customer in AcceptCustomer
+function ValidateCustomer(id)
+{
+     var customerId;
+  
+    //document.getElementById("invalidCustomer").style.display="none";
+    //customerId = document.getElementById("txtCustomerId").value;
+    customerId=id;
+    var result={};
+  $.ajax({
+     type: 'GET',
+     url: globalVars.validateCustomer,
+     data:{
+      apiLoginId: globalVars.apiLoginID, 
+      apiTransactionKey: globalVars.apiTransactionKey,
+      customerId: customerId
+    },
+    async: false,
+    contentType: "application/json; charset=utf-8",
+    success:function(data,textStatus,jqXHR){
+      /*if(data.status == true)
+      {
+         return true;
+      }
+      else
+      {
+          return false;
+            
+          document.getElementById("invalidCustomer").style.display="inherit";
+          document.getElementById("invalidCustomer").innerHTML=data.message; 
+      }*/
+      result={
+        valid:true,
+        status:data.status,
+        message:data.message
+      };
+    },
+    error:function(data,textStatus,errorThrown){
+      
+      result={
+        valid:false,
+        status:false,
+        message:textStatus
+      };
+      //return result;
+      //document.getElementById("invalidCustomer").style.display="inherit";
+      //document.getElementById("invalidCustomer").innerHTML=data.message;
+   
+    }
+  });
+  return result;
+
+}
+
+function AcceptCustomer(id)
+{
+  var customerId=id;
+  // Ajax call for API to get token
+   $.ajax({
+    type: 'GET',  
+    url:globalVars.getCustomerTokenUrl,
+    data:{
+      apiLoginId: globalVars.apiLoginID, 
+      apiTransactionKey: globalVars.apiTransactionKey,
+      customerId : customerId,
+      iFrameCommunicatorUrl: globalVars.iFrameCommunicatorUrl
+    },
+    contentType: "application/json; charset=utf-8",
+    success: function (data, textStatus, jqXHR) {
+      if(data.status)
+      {
+           document.getElementById("custtoken").value=data.value;
+           document.getElementById("send_token").setAttribute("action",globalVars.customerFormUrl);
+            document.getElementById("send_token").submit();
+            document.getElementById("acceptCustomer").style.display="block";
+            document.getElementById("load_profile").style.display="block";
+            
+      }
+      else
+      {
+              document.getElementById("noteCS").style.display="none";
+              document.getElementById("msgCS").innerHTML ="";
+              document.getElementById("msgCS").innerHTML =data.message;
+              var element = document.getElementById("alertCS");
+              element.classList.remove("alert-success");
+              element.classList.add("alert-danger");
+              element.style.display="block";
+              document.getElementById("acceptCustomer").style.display="block";
+      }
+            
+        },
+    error: function (jqXHR, textStatus, errorThrown) {
+          document.getElementById("msgCS").innerHTML ="";
+              document.getElementById("msgHS").innerHTML =textStatus;
+              var element = document.getElementById("alertCS");
               element.classList.remove("alert-success");
               element.classList.add("alert-danger");
               element.style.display="block";
@@ -155,7 +320,7 @@ function validatePaymentFields()
      var accountNumber = document.getElementById("accountNumber");
      var routingNumber = document.getElementById("routingNumber");
      var nameOnAccount = document.getElementById("nameOnAccount");
-     var accountType = document.getElementById("accountType");
+     //var accountType = document.getElementById("accountType");
 
         if(accountNumber.value=="")  
           accountNumber.classList.add("error");
@@ -178,12 +343,26 @@ function validatePaymentFields()
           nameOnAccount.classList.remove("error");
           nameOnAccount.classList.add("success");
        }
-        if(accountType.value=="")  
-         accountType.classList.add("error");
+       var radios = document.getElementsByName('acntradio');
+        var val;
+        for (var i = 0, length = radios.length; i < length; i++)
+        {
+         if (radios[i].checked)
+         {
+          val=radios[i].value;
+          break;
+         }
+         else{
+          val="";
+         }
+        }
+
+        if(val=="" || val=== null)  
+         document.querySelector('input[name="acntradio"]').classList.add("error");
         else
         {
-          accountType.classList.remove("error");
-          accountType.classList.add("success");
+          document.querySelector('input[name="acntradio"]').classList.remove("error");
+          document.querySelector('input[name="acntradio"]').classList.add("success");
         }
    }
 
@@ -233,7 +412,7 @@ function onTextInput(id)
 function sendPaymentDataToAnet()
 {
 
-   var isvalid=validatePaymentFields();
+  var isvalid=validatePaymentFields();
   if(isvalid=="true")
   {
    var authData = {};
@@ -256,7 +435,7 @@ function sendPaymentDataToAnet()
        bankData.accountNumber = document.getElementById('accountNumber').value;
        bankData.routingNumber = document.getElementById('routingNumber').value;
        bankData.nameOnAccount = document.getElementById('nameOnAccount').value;
-       bankData.accountType = document.getElementById('accountType').value;
+       bankData.accountType = document.querySelector('input[name="acntradio"]:checked').value;
    }
    var secureData = {};
    secureData.authData = authData;
@@ -314,6 +493,7 @@ function responseHandler(response) {
                 apiLoginId: globalVars.apiLoginID, 
                 apiTransactionKey: globalVars.apiTransactionKey,
                 token: tokenVal
+
               },
               contentType: "application/json; charset=utf-8",
               success: function (data, textStatus, jqXHR) {
@@ -371,7 +551,9 @@ function paymentFormUpdate(opaqueData) {
     document.getElementById("accountNumber").value = "";
     document.getElementById("routingNumber").value = "";
     document.getElementById("nameOnAccount").value = "";
-   // document.getElementById("accountType").value = "";
+     var rds = document.getElementsByName("acntradio");
+   for(var i=0;i<rds.length;i++)
+      rds[i].checked = false;
     var element=document.getElementsByClassName('error');
     while (element.length)
     element[0].classList.remove("error");
@@ -446,18 +628,22 @@ CommunicationHandler.onReceiveCommunication = function (argument) {
    // console.log(params);
     //console.log(parentFrame);
     //alert(params['height']);
-    $frame = null;
+    frame = null;
     switch(parentFrame){
-     // case "manage"     : $frame = $("#load_profile");break;
+      case "manage"     : frame = document.getElementById("load_profile");break;
       //case "addPayment"   : $frame = $("#add_payment");break;
      // case "addShipping"  : $frame = $("#add_shipping");break;
      // case "editPayment"  : $frame = $("#edit_payment");break;
       //case "editShipping" : $frame = $("#edit_shipping");break;
-      case "payment"    : $frame = $("#load_payment");break;
+      case "payment"    : frame = document.getElementById("load_payment");break;
     }
 
     switch(params['action']){
-      case "resizeWindow"   :   //if( parentFrame== "manage" && parseInt(params['height'])<1150) params['height']=1150;
+      case "resizeWindow"   :   if( parentFrame== "manage" && parseInt(params['height'])<1150)
+                         {
+                        params['height']=600;
+                        params['width']=800;
+                      }
                     if( parentFrame== "payment" && parseInt(params['height'])<1000) 
                       {
                         params['height']=500;
@@ -465,13 +651,14 @@ CommunicationHandler.onReceiveCommunication = function (argument) {
                       }
                     
                     //if(parentFrame=="addShipping" && $(window).width() > 1021) params['height']= 350;
-                    $frame.outerHeight(parseInt(params['height']));
-                    $frame.outerWidth(parseInt(params['width']));
+                    frame.height=parseInt(params['height']);
+                    frame.width=parseInt(params['width']);
                     break;
 
       case "successfulSave"   :   $('#myModal').modal('hide'); location.reload(false); break;
 
-      case "cancel"       :   
+      case "cancel"       : 
+      alert("cancel");  
                     var currTime = sessionStorage.getItem("lastTokenTime");
                     if (currTime === null || (Date.now()-currTime)/60000 > 15){
                       location.reload(true);
@@ -487,11 +674,7 @@ CommunicationHandler.onReceiveCommunication = function (argument) {
                     }
                     break;
 
-      case "transactResponse" :   sessionStorage.removeItem("HPTokenTime");
-                    $('#HostedPayment').attr('src','about:blank');
-                    var transResponse = JSON.parse(params['response']);
-                    $("#HPConfirmation p").html("<strong><b> Success.. !! </b></strong> <br><br> Your payment of <b>$"+transResponse.totalAmount+"</b> for <b>"+transResponse.orderDescription+"</b> has been Processed Successfully on <b>"+transResponse.dateTime+"</b>.<br><br>Generated Order Invoice Number is :  <b>"+transResponse.orderInvoiceNumber+"</b><br><br> Happy Shopping with us ..");
-                    $("#HPConfirmation p b").css({"font-size":"22px", "color":"green"});
-                    $("#HPConfirmation").modal("toggle");
+      case "transactResponse" :   
+      alert("transact");
     }
   }
